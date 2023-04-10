@@ -275,7 +275,7 @@
     width: 100%;
     height: 100%;
     padding: 1rem;
-    background-color: transparent;
+    background-color: rgba(238, 238, 238, 0.76);
     border-radius: 15px;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
     rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px !important;
@@ -303,25 +303,34 @@
 .aboutdetails {
     font-size: 1.1em !important;
 }
-.skilllist li {
-    letter-spacing: 1px;
-    font-family: "Exo 2", sans-serif;
-}
 .skilllist {
-    font-weight: 600;
-    list-style-type: "⮞  ";
+    margin: 10px;
 }
-.skilllist li:hover {
-    transform: scale(1.05);
-    transition: 5ms;
-    color: #e8e8e8;
+.skill-button {
+    display: block;
+    border: solid 0.5px;
+    background-color: transparent;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 3px 10px;
+    letter-spacing: 1px;
+}
+
+.skill-badge {
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 0.75em !important;
+    font-weight: 600 !important;
+    letter-spacing: 1px !important;
+    background-color: #2D033B;
+    background-image: linear-gradient(43deg, #810CA8 0%, #C147E9 100%);
+    box-shadow: rgba(0, 0, 0, 0.35) 0 3px 10px;
 }
 .webimage {
-    max-width: 500px;
-    height: 350px;
+    max-width: 450px;
+    height: 300px;
     background-image: url(../assets/web-removebg-preview.png);
     background-size: cover;
     background-position: center;
+    margin: auto;
 }
 @media (max-width: 767px) {
     .aboutpagebackground {
@@ -450,19 +459,6 @@
 }
 .contactbtn:hover {
     background-color: rgba(51, 51, 51, 0.2);
-}
-.line {
-    margin-top: 11rem;
-}
-.copyright {
-    padding: 1px;
-    text-align: center;
-    font-size: 12px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.copyright span{
-    font-weight: 700;
-    letter-spacing: 1px;
 }
 @media (max-width: 767px) {
     .line {
