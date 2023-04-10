@@ -72,7 +72,7 @@ const Header = () => {
 
                     <Button
                         onClick={() => {
-                            window.open("");
+                            window.open("https://drive.google.com/file/d/1bFpBPnFFE-zNUfgqyC4STMWRgeB5kvaA/view?usp=share_link");
                         }}
                         className='resumebtn'><span>Resume</span>
                     </Button>

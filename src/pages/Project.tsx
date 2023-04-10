@@ -1,4 +1,12 @@
+import Header from "../components/organisms/Header";
+import ProjectsPage from "../components/organisms/Projectspage";
+
 const Project = () => {
-    return(<></>)
+    return(
+        <div>
+            <Header/>
+            <ProjectsPage/>
+        </div>
+    )
 }
 export default Project;
