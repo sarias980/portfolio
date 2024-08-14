@@ -12,7 +12,7 @@ function App() {
     useEffect(() => {
         const timer = setTimeout(() => {
             updateLoad(false);
-        }, 1200);
+        }, 1000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -21,9 +21,7 @@ function App() {
         <div className="App">
             <Router>
                 <Preloader load={load}/>
-                <div className="App">
-                    <AppNavigation/>
-                </div>
+                <AppNavigation/>
             </Router>
         </div>
     );

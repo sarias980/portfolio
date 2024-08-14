@@ -1,13 +1,27 @@
-import Homepage from "../components/organisms/Homepage";
-import Header from "../components/organisms/Header";
+import * as React from 'react';
+import ProductCategories from '../sections/ProductCategories';
+import ProductSmokingHero from '../sections/ProductSmokingHero';
+import AppFooter from '../sections/AppFooter';
+import ProductHero from '../sections/ProductHero';
+import ProductValues from '../sections/ProductValues';
+import ProductHowItWorks from '../sections/ProductHowItWorks';
+import ProductCTA from '../sections/ProductCTA';
+import AppAppBar from '../sections/AppAppBar';
+import withRoot from '../modules/withRoot';
 
 const Home = () => {
     return (
-        <div>
-            <Header/>
-            <Homepage/>
-        </div>
+        <React.Fragment>
+            <AppAppBar />
+            <ProductHero />
+            <ProductValues />
+            <ProductCategories />
+            <ProductHowItWorks />
+            <ProductCTA />
+            <ProductSmokingHero />
+            <AppFooter />
+        </React.Fragment>
     )
 }
 
-export default Home;
+export default withRoot(Home);
