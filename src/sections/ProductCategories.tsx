@@ -4,6 +4,13 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Container from '@mui/material/Container';
 import Typography from '../components/Typography';
+import webImg from '../assets/elements/web.webp';
+import designImg from '../assets/elements/design.webp';
+import tsImg from '../assets/elements/typescript-1.jpeg';
+import reactImg from '../assets/elements/img_react.webp';
+import mobileImg from '../assets/elements/mobile-app.avif';
+import consultingImg from '../assets/elements/consulting.webp';
+
 
 const ImageBackdrop = styled('div')(({ theme }) => ({
   position: 'absolute',
@@ -55,32 +62,32 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
 
 const images = [
   {
-    url: 'https://images.unsplash.com/photo-1534081333815-ae5019106622?auto=format&fit=crop&w=400',
+    url: webImg,
     title: 'Web',
     width: '33%',
   },
   {
-    url: 'https://images.unsplash.com/photo-1531299204812-e6d44d9a185c?auto=format&fit=crop&w=400',
+    url: designImg,
     title: 'Design',
     width: '33%',
   },
   {
-    url: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=400',
+    url: tsImg,
     title: 'TS',
     width: '33%',
   },
   {
-    url: 'https://images.unsplash.com/photo-1453747063559-36695c8771bd?auto=format&fit=crop&w=400',
+    url: reactImg,
     title: 'React JS',
     width: '33%',
   },
   {
-    url: 'https://images.unsplash.com/photo-1523309996740-d5315f9cc28b?auto=format&fit=crop&w=400',
+    url: mobileImg,
     title: 'Mobile App',
     width: '33%',
   },
   {
-    url: 'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?auto=format&fit=crop&w=400',
+    url: consultingImg,
     title: 'Consulting',
     width: '33%',
   },
@@ -88,7 +95,7 @@ const images = [
 
 export default function ProductCategories() {
   return (
-    <Container component="section" sx={{ mt: 8, mb: 4 }}>
+    <Container component="section" sx={{ mt: 15, mb: 25 }}>
       <Typography variant="h4" marked="center" align="center" component="h2">
         Ready for all you  need
       </Typography>

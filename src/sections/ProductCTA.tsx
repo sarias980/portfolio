@@ -6,6 +6,7 @@ import Typography from '../components/Typography';
 import TextField from '../components/TextField';
 import Snackbar from '../components/Snackbar';
 import Button from '../components/Button';
+import example from '../assets/example.jpg';
 
 function ProductCTA() {
   const [open, setOpen] = React.useState(false);
@@ -20,14 +21,14 @@ function ProductCTA() {
   };
 
   return (
-    <Container id="#contact" component="section" sx={{ mt: 10, display: 'flex' }}>
+    <Container id="#contact" component="section" sx={{ mt: 25, display: 'flex' }}>
       <Grid container>
         <Grid item xs={12} md={6} sx={{ zIndex: 1 }}>
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'center',
-              bgcolor: 'secondary.main',
+              bgcolor: 'info.dark',
               py: 8,
               px: 3,
             }}
@@ -37,14 +38,16 @@ function ProductCTA() {
                 Contact
               </Typography>
               <Typography variant="h5" color='white'>
-                Send your email and we will found the best moment to start the process.
+                Send me a message and we will find the best moment to start the process.
               </Typography>
 
               <Button
                 type="submit"
-                color="primary"
+                color="secondary"
                 variant="contained"
-                sx={{ width: '100%', mt:3 }}
+                component="a"
+                href="https://www.linkedin.com/in/sergi-arias-fern%C3%A1ndez-ab2729148/"
+                sx={{ width: '100%', mt:3, color: 'white' }}
               >
                 Let's talk
               </Button>
@@ -70,8 +73,8 @@ function ProductCTA() {
           />
           <Box
             component="img"
-            src="https://images.unsplash.com/photo-1527853787696-f7be74f2e39a?auto=format&fit=crop&w=750"
-            alt="call to action"
+            src={`${example}`}
+            alt="example"
             sx={{
               position: 'absolute',
               top: -28,

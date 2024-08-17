@@ -22,14 +22,14 @@ export default function ProductHero() {
         variant="h5"
         sx={{ mb: 4, mt: { xs: 4, sm: 10 } }}
       >
-        Web development, design, and more
+        Web development, design and more
       </Typography>
       <Button
         color="secondary"
         variant="contained"
         size="large"
         component="a"
-        href="#contact"
+        href="https://www.linkedin.com/in/sergi-arias-fern%C3%A1ndez-ab2729148/"
         sx={{ minWidth: 200 }}
       >
         Contact

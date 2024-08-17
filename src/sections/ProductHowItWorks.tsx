@@ -20,7 +20,7 @@ const item: SxProps<Theme> = {
 const number = {
   fontSize: 24,
   fontFamily: 'default',
-  color: 'secondary.main',
+  color: 'secondary.dark',
   fontWeight: 'medium',
 };
 
@@ -34,15 +34,22 @@ function ProductHowItWorks() {
 
   const renderBox = (icon: any, description: string, index:number) => (
       <Box sx={item}>
-        <Box sx={number}>{index}.</Box>
+        <Box sx={number}>{index}</Box>
         {icon}
-        <Typography variant="h5" align="center" color='white'>{description}</Typography>
+        <Typography variant="h5"
+                    align="center"
+                    color='white'
+                    my={1}
+                    mx={'auto'}
+        maxWidth={675}
+        >
+        {description}</Typography>
       </Box>
   )
   return (
     <Box
       component="section"
-      sx={{ display: 'flex', bgcolor: 'info.light', overflow: 'hidden' }}
+      sx={{display: 'flex', bgcolor: 'info.dark', overflow: 'hidden'}}
     >
       <Container
         sx={{
@@ -65,24 +72,25 @@ function ProductHowItWorks() {
             opacity: 0.7,
           }}
         />
-        <Typography variant="h4" marked="center" component="h2" color='white' sx={{ mb: 14 }}>
+          <Typography variant="h4" marked="center" component="h2" color='white' sx={{mb: 10}}>
           How it works
-        </Typography>
-        <div>
+          </Typography>
+
+          <div>
           <Grid container spacing={5}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={12}>
                 {renderBox(<ForumIcon sx={image}/>,
-                    'Make a meeting to analyze your needs and offer you the best solution for your project in each platform.',
+                    `We will arrange a meeting to fully understand and analyze the core needs and goals of your project. Every design and development decision will be aligned with your brand's objectives and user needs`,
                     1)}
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={12}>
                 {renderBox(<ReceiptLongIcon sx={image}/>,
-                    'Define a budget and a timeline for the project, and start the design of the best user experience and interface for your web or application.',
+                    `We will define a budget and a timeline for the project, and we will start transforming insights into a visually and intuitive user experience, ensuring it not only looks great but also functions seamlessly.`,
                     2)}
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={12}>
                 {renderBox(<QueuePlayNextIcon sx={image}/>,
-                    'Develop your project with the best practices and tools to ensure the best performance and scalability.',
+                    `Bringing designs to life with clean, efficient and scalable code is where the magic happens. We will turn static designs into a dynamic, interactive and user-friendly website, ensuring a flawless experience across all devices.`,
                     3)}
             </Grid>
           </Grid>
@@ -92,8 +100,8 @@ function ProductHowItWorks() {
           size="large"
           variant="contained"
           component="a"
-          href="#contact"
-          sx={{ mt: 8 }}
+          href="https://www.linkedin.com/in/sergi-arias-fern%C3%A1ndez-ab2729148/"
+          sx={{mt: 8, color: 'white'}}
         >
           Get started
         </Button>
