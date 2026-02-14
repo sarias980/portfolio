@@ -79,8 +79,10 @@ export type HomeCopy = {
   careerTimelineSummary: string;
   currentTag: string;
   stackMatrix: string;
+  leadershipApproachTitle: string;
   coreStack: string;
   coreStackSummary: string;
+  impactDetailsLinkLabel: string;
   contactTitle: string;
   contactSummary: string;
   linkedinContactButton: string;
@@ -92,6 +94,7 @@ export type PortfolioContent = {
   kpis: KPI[];
   experiences: ExperienceItem[];
   caseStudies: CaseStudy[];
+  leadershipPillars: LeadershipPillar[];
   techCategories: TechCategory[];
 };
 
@@ -199,30 +202,30 @@ export const personalProjects: PersonalProject[] = [
 // Case studies are grouped by impact area so the UI can scale when new roles are added.
 export const caseStudies: CaseStudy[] = [
   {
-    title: 'Architecture from Day 0 at Deepdots',
+    title: 'Architecture from Day 0',
     summary:
-      'Built the frontend foundation from scratch in a distributed, multi-repository environment aligned with product roadmap constraints.',
+      'Built the frontend foundation from scratch in a distributed, multi-repository setup aligned with product roadmap constraints.',
     impact:
-      'Enabled predictable delivery, scalable ownership and stable growth across an expanding engineering team.',
-    stack: ['React', 'TypeScript', 'Redux', 'GitHub Actions'],
+      'Created a scalable structure that enabled predictable delivery across an expanding engineering team.',
+    stack: ['React', 'TypeScript', 'Redux', 'Monorepo Strategy'],
     link: profile.linkedin,
   },
   {
     title: 'Data-Driven Product at Scale',
     summary:
-      'Implemented interfaces and workflows for a platform that processes and visualizes 10k+ feedback inputs per day.',
+      'Implemented interfaces and flows for a platform that processes and visualizes 10k+ feedback inputs per day.',
     impact:
-      'Improved usability and decision-making speed for high-volume data operations with robust frontend patterns.',
-    stack: ['React', 'Node.js APIs', 'BigQuery', 'GCP'],
+      'Improved product clarity and usability for high-volume data operations through robust frontend patterns.',
+    stack: ['React', 'GCP', 'BigQuery', 'Node.js Integration'],
     link: profile.linkedin,
   },
   {
-    title: 'Multi-Platform Delivery Across Roles',
+    title: 'Quality and Team Enablement',
     summary:
-      'Delivered hybrid and web applications in different industries while evolving from developer to technical leadership.',
+      'Defined engineering standards, CI/CD pipelines and review practices while mentoring new team members.',
     impact:
-      'Sustained delivery quality across product, architecture and team-coordination responsibilities.',
-    stack: ['React', 'Angular', 'Ionic', 'React Native'],
+      'Raised code quality consistency and supported team growth from 3 to 6 engineers.',
+    stack: ['GitHub Actions', 'Jest', 'Code Review', 'Onboarding'],
     link: profile.linkedin,
   },
 ];
@@ -392,31 +395,49 @@ const experiencesEs: ExperienceItem[] = [
 
 const caseStudiesEs: CaseStudy[] = [
   {
-    title: 'Arquitectura desde el día 0 en Deepdots',
+    title: 'Arquitectura desde el día 0',
     summary:
-      'Construí la base frontend desde cero en un entorno distribuido y multi-repositorio, alineado con las restricciones del roadmap de producto.',
+      'Construí la base frontend desde cero en una configuración distribuida y multi-repositorio alineada con las restricciones del roadmap de producto.',
     impact:
-      'Habilité una entrega predecible, ownership escalable y crecimiento estable en un equipo de ingeniería en expansión.',
-    stack: ['React', 'TypeScript', 'Redux', 'GitHub Actions'],
+      'Creé una estructura escalable que permitió una entrega predecible en un equipo de ingeniería en expansión.',
+    stack: ['React', 'TypeScript', 'Redux', 'Estrategia Monorepo'],
     link: profile.linkedin,
   },
   {
     title: 'Producto data-driven a escala',
     summary:
-      'Implementé interfaces y flujos para una plataforma que procesa y visualiza más de 10k entradas de feedback al día.',
+      'Implementé interfaces y flujos para una plataforma que procesa y visualiza más de 10k entradas de feedback por día.',
     impact:
-      'Mejoré la usabilidad y la velocidad de decisión en operaciones de datos de alto volumen con patrones frontend robustos.',
-    stack: ['React', 'Node.js APIs', 'BigQuery', 'GCP'],
+      'Mejoré la claridad de producto y la usabilidad en operaciones de datos de alto volumen mediante patrones frontend robustos.',
+    stack: ['React', 'GCP', 'BigQuery', 'Integración Node.js'],
     link: profile.linkedin,
   },
   {
-    title: 'Entrega multiplataforma en distintos roles',
+    title: 'Calidad y habilitación del equipo',
     summary:
-      'Entregué aplicaciones híbridas y web en diferentes industrias mientras evolucionaba de desarrollador a liderazgo técnico.',
+      'Definí estándares de ingeniería, pipelines de CI/CD y prácticas de revisión mientras mentorizaba a nuevos miembros del equipo.',
     impact:
-      'Mantuve la calidad de entrega en responsabilidades de producto, arquitectura y coordinación de equipos.',
-    stack: ['React', 'Angular', 'Ionic', 'React Native'],
+      'Elevé la consistencia de calidad de código y apoyé el crecimiento del equipo de 3 a 6 ingenieros.',
+    stack: ['GitHub Actions', 'Jest', 'Code Review', 'Onboarding'],
     link: profile.linkedin,
+  },
+];
+
+const leadershipPillarsEs: LeadershipPillar[] = [
+  {
+    title: 'Arquitectura orientada a producto',
+    description:
+      'Defino la arquitectura frontend en torno a objetivos de negocio, asegurando que las decisiones técnicas apoyen directamente los resultados de producto.',
+  },
+  {
+    title: 'Excelencia operacional',
+    description:
+      'Construyo workflows claros, documentación y pipelines de CI/CD para que los equipos entreguen rápido sin comprometer la calidad.',
+  },
+  {
+    title: 'Multiplicación del equipo',
+    description:
+      'Mentorizo a ingenieros mediante estándares, revisiones y procesos de onboarding que escalan la calidad a medida que crecen los equipos.',
   },
 ];
 
@@ -467,8 +488,10 @@ const homeCopy: Record<Locale, HomeCopy> = {
     careerTimelineSummary: 'Architecture ownership, product delivery and team growth over time.',
     currentTag: 'Current',
     stackMatrix: 'Stack Matrix',
+    leadershipApproachTitle: 'Leadership Approach',
     coreStack: 'Core Stack',
     coreStackSummary: 'Selected technologies used repeatedly in production environments.',
+    impactDetailsLinkLabel: 'View details',
     contactTitle: 'Let’s build the next high-impact product.',
     contactSummary:
       'If your team needs senior frontend leadership with execution focus, I am open to connect.',
@@ -496,8 +519,10 @@ const homeCopy: Record<Locale, HomeCopy> = {
     careerTimelineSummary: 'Ownership de arquitectura, entrega de producto y crecimiento del equipo en el tiempo.',
     currentTag: 'Actual',
     stackMatrix: 'Matriz tecnológica',
+    leadershipApproachTitle: 'Enfoque de liderazgo',
     coreStack: 'Stack principal',
     coreStackSummary: 'Tecnologías seleccionadas usadas de forma recurrente en entornos de producción.',
+    impactDetailsLinkLabel: 'Ver detalles',
     contactTitle: 'Construyamos el próximo producto de alto impacto.',
     contactSummary:
       'Si tu equipo necesita liderazgo frontend senior con foco en ejecución, estaré encantado de conectar.',
@@ -512,6 +537,7 @@ const portfolioContent: Record<Locale, PortfolioContent> = {
     kpis,
     experiences,
     caseStudies,
+    leadershipPillars,
     techCategories,
   },
   es: {
@@ -519,6 +545,7 @@ const portfolioContent: Record<Locale, PortfolioContent> = {
     kpis: kpisEs,
     experiences: experiencesEs,
     caseStudies: caseStudiesEs,
+    leadershipPillars: leadershipPillarsEs,
     techCategories: techCategoriesEs,
   },
 };
