@@ -1,17 +1,13 @@
-import React from 'react'
-import Typewriter from "typewriter-effect";
+import React from 'react';
 
-const Text = (props: { strings:string[]}) => {
-    return (
-        <Typewriter
-            options={{
-                strings: props.strings,
-                autoStart: true,
-                loop: true,
-                deleteSpeed: 50,
-            }}
-        />
-    )
-}
+type TextProps = {
+  strings: string[];
+};
+
+// Lightweight fallback to avoid external animation dependencies in legacy views.
+const Text = ({ strings }: TextProps) => {
+  const value = strings[0] ?? '';
+  return <span>{value}</span>;
+};
 
 export default Text;
