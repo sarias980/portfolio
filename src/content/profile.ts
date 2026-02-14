@@ -102,14 +102,14 @@ export const profile: Profile = {
   fullName: 'Sergi Arias Fernández',
   headline: 'Senior Frontend Engineer | Frontend Technical Lead | React & TypeScript Specialist',
   summary:
-    'Senior Frontend Engineer with 9+ years of experience building scalable web applications and leading frontend architecture from scratch.',
+    'Senior Frontend Engineer with 10+ years of experience building scalable web applications and leading frontend architecture from scratch.',
   linkedin: 'https://www.linkedin.com/in/sergi-arias-fern%C3%A1ndez-ab2729148/',
   email: 'sarias980@gmail.com',
   phone: '+34 657317670',
 };
 
 export const kpis: KPI[] = [
-  { label: 'Years of experience', value: '9+' },
+  { label: 'Years of experience', value: '10+' },
   { label: 'Projects delivered', value: '20+' },
   { label: 'Continents impacted', value: '3' },
 ];
@@ -311,14 +311,14 @@ const profileEs: Profile = {
   fullName: 'Sergi Arias Fernández',
   headline: 'Ingeniero Frontend Senior | Líder Técnico Frontend | Especialista en React y TypeScript',
   summary:
-    'Ingeniero Frontend senior con más de 9 años de experiencia creando aplicaciones web escalables y liderando arquitectura frontend desde cero.',
+    'Ingeniero Frontend senior con más de 10 años de experiencia creando aplicaciones web escalables y liderando arquitectura frontend desde cero.',
   linkedin: profile.linkedin,
   email: profile.email,
   phone: profile.phone,
 };
 
 const kpisEs: KPI[] = [
-  { label: 'Años de experiencia', value: '9+' },
+  { label: 'Años de experiencia', value: '10+' },
   { label: 'Proyectos entregados', value: '20+' },
   { label: 'Continentes impactados', value: '3' },
 ];
