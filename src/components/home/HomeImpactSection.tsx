@@ -58,15 +58,6 @@ export default function HomeImpactSection({
       maxWidth="lg"
       sx={{ pt: { xs: 2.1, md: 3.1 }, pb: { xs: 7.8, md: 9.8 }, scrollMarginTop: 98 }}
     >
-      <Stack direction="row" spacing={1} alignItems="center">
-        <VerifiedRoundedIcon sx={{ color: 'secondary.main' }} />
-        <Typography variant="overline" sx={{ letterSpacing: '0.14em', color: 'secondary.dark', fontWeight: 700 }}>
-          {copy.resultsMatrix}
-        </Typography>
-      </Stack>
-      <Typography variant="h3" sx={{ mt: 0.45, color: 'text.primary', letterSpacing: '0.02em' }}>
-        {copy.impactTitle}
-      </Typography>
 
       <Grid container spacing={3.3} alignItems="stretch" sx={{ mt: 2.1 }}>
         {caseStudies.slice(0, 3).map((caseStudy, index) => {
@@ -324,7 +315,7 @@ export default function HomeImpactSection({
           >
             <Box
               sx={{
-                borderRadius: 4,
+                borderRadius: 2,
                 px: { xs: 2, md: 3.2 },
                 py: { xs: 2.4, md: 3.1 },
                 background:
@@ -351,14 +342,14 @@ export default function HomeImpactSection({
               >
                 {copy.leadershipApproachTitle}
               </Typography>
-              <Grid container spacing={2.2} sx={{ mt: 1.4 }}>
+              <Grid container spacing={2.2} sx={{ mt: 2.5 }}>
                 {leadershipPillars.map((pillar) => (
                   <Grid key={pillar.title} size={{ xs: 12, md: 4 }} sx={{ display: 'flex' }}>
                     <Card
                       sx={{
                         width: '100%',
                         height: '100%',
-                        borderRadius: 3,
+                        borderRadius: 2,
                         border: `1px solid ${alpha(theme.palette.common.white, 0.08)}`,
                         boxShadow: '0 10px 24px rgba(2, 8, 20, 0.35)',
                         bgcolor: alpha(theme.palette.common.white, 0.08),
