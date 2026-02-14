@@ -504,7 +504,7 @@ const homeCopy: Record<Locale, HomeCopy> = {
     darkModeLabel: 'Activar modo oscuro',
     lightModeLabel: 'Activar modo claro',
     roleChip: 'Ingeniero Frontend Senior · Líder Técnico Frontend',
-    heroTitle: 'Arquitectura frontend orientada a producto.',
+    heroTitle: 'Arquitectura frontend orientada a producto',
     impactButton: 'Ver impacto',
     linkedinButton: 'Abrir LinkedIn',
     currentRole: 'Rol actual',
