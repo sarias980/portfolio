@@ -10,7 +10,7 @@ Source for [sarias.dev](https://sarias.dev). React 19, TypeScript, Vite and MUI,
 - `npm test`: unit tests plus a build test that checks the prerendered HTML.
 - `npm run typecheck`: TypeScript without emitting.
 - `npm run assets`: regenerate favicons, manifest icons, Open Graph images and WebP logos (`scripts/generate-assets.mjs`).
-- `npm run deploy`: deploy `dist` to Firebase Hosting (run `npm run build` first).
+- `npm run deploy`: build (Firebase `predeploy` hook) and deploy `dist` to Firebase Hosting.
 
 ## How the build works
 
