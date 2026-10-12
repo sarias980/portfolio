@@ -5,18 +5,9 @@ import { renderWithTheme } from '../../../test/renderWithTheme';
 
 describe('HomeHeroSection', () => {
   const copy = getHomeCopy('en');
-  const { profile, experiences, kpis, projects } = getPortfolioContent('en');
+  const { profile, kpis } = getPortfolioContent('en');
 
-  const renderHero = () =>
-    renderWithTheme(
-      <HomeHeroSection
-        activeRole={experiences[0]}
-        copy={copy}
-        featuredProject={projects[0]}
-        kpis={kpis}
-        profile={profile}
-      />,
-    );
+  const renderHero = () => renderWithTheme(<HomeHeroSection copy={copy} kpis={kpis} profile={profile} />);
 
   it('renders the headline with its keywords as the only heading', () => {
     renderHero();
@@ -32,17 +23,6 @@ describe('HomeHeroSection', () => {
     const linkedinCta = screen.getByRole('link', { name: copy.linkedinButton });
     expect(linkedinCta).toHaveAttribute('href', profile.linkedin);
     expect(linkedinCta).toHaveAttribute('rel', 'noopener');
-  });
-
-  it('shows the current role and the featured product', () => {
-    renderHero();
-
-    expect(screen.getByText(experiences[0].role)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: projects[0].name })).toHaveAttribute(
-      'href',
-      'https://touryteller.com',
-    );
-    expect(screen.getByText(copy.liveOnStores)).toBeInTheDocument();
   });
 
   it('lists the key facts', () => {

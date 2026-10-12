@@ -2,20 +2,17 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
 import LaunchRoundedIcon from '@mui/icons-material/LaunchRounded';
 import PlaceRoundedIcon from '@mui/icons-material/PlaceRounded';
-import type { ExperienceItem, HomeCopy, KPI, Profile, Project } from '../../content/profile';
+import type { HomeCopy, KPI, Profile } from '../../content/profile';
 import { brandGradient, easeOutExpo } from '../../modules/theme';
+import { sPath } from '../common/BrandMark';
 
 type HomeHeroSectionProps = {
-  activeRole: ExperienceItem;
   copy: HomeCopy;
-  featuredProject: Project;
   kpis: KPI[];
   profile: Profile;
 };
@@ -33,26 +30,84 @@ const rise = (delay = 0) =>
     },
   }) as const;
 
-const labelSx = {
-  fontSize: '0.75rem',
-  fontWeight: 700,
-  letterSpacing: '0.08em',
-  textTransform: 'uppercase',
-  color: 'text.secondary',
-} as const;
+// The S mark as the hero's centrepiece: its outline draws in, fills, then the
+// brand bar sweeps underneath. Decorative only; CSS so it also plays on the
+// prerendered page, and shown complete when reduced motion is requested.
+function HeroMark() {
+  return (
+    <Box
+      aria-hidden
+      sx={{
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 3,
+        py: 4,
+        color: 'text.primary',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: '-10% -30%',
+          zIndex: -1,
+          background:
+            'radial-gradient(closest-side, var(--mui-palette-surface-glowSecondary), transparent 70%), radial-gradient(closest-side at 70% 80%, var(--mui-palette-surface-glowWarning), transparent 70%)',
+        },
+        '& path': {
+          fill: 'currentColor',
+          stroke: 'currentColor',
+          strokeWidth: 0.12,
+          strokeLinejoin: 'round',
+        },
+        '@media (prefers-reduced-motion: no-preference)': {
+          '& path': {
+            strokeDasharray: 1,
+            animation: `mark-draw 1600ms ${easeOutExpo} 200ms both, mark-fill 700ms ease-out 1300ms both`,
+          },
+          '& .hero-mark-bar': {
+            animation: `mark-bar 900ms ${easeOutExpo} 1700ms both`,
+          },
+          '@keyframes mark-draw': {
+            from: { strokeDashoffset: 1 },
+            to: { strokeDashoffset: 0 },
+          },
+          '@keyframes mark-fill': {
+            from: { fillOpacity: 0 },
+            to: { fillOpacity: 1 },
+          },
+          '@keyframes mark-bar': {
+            from: { transform: 'scaleX(0)' },
+            to: { transform: 'scaleX(1)' },
+          },
+        },
+      }}
+    >
+      <Box
+        component="svg"
+        viewBox="0.9 11.6 11 29"
+        focusable="false"
+        sx={{ width: { md: 112, lg: 128 }, height: { md: 296, lg: 336 }, overflow: 'visible' }}
+      >
+        <path d={sPath} pathLength={1} />
+      </Box>
+      <Box
+        className="hero-mark-bar"
+        sx={{
+          width: { md: 150, lg: 172 },
+          height: 12,
+          borderRadius: 9,
+          background: brandGradient,
+          transformOrigin: 'left',
+        }}
+      />
+    </Box>
+  );
+}
 
-export default function HomeHeroSection({
-  activeRole,
-  copy,
-  featuredProject,
-  kpis,
-  profile,
-}: HomeHeroSectionProps) {
-  const website = featuredProject.links.find((link) => link.kind === 'website');
-
+export default function HomeHeroSection({ copy, kpis, profile }: HomeHeroSectionProps) {
   return (
     <Container maxWidth="lg" sx={{ position: 'relative', pb: { xs: 8, md: 12 } }}>
-      <Grid container spacing={{ xs: 5, md: 6 }} alignItems="flex-end">
+      <Grid container spacing={{ xs: 5, md: 6 }} alignItems="center">
         <Grid size={{ xs: 12, md: 7, lg: 8 }} sx={rise()}>
           <Typography variant="h1" sx={{ maxWidth: 900 }}>
             <Box component="span" sx={{ display: 'block' }}>
@@ -145,99 +200,8 @@ export default function HomeHeroSection({
           </Stack>
         </Grid>
 
-        <Grid size={{ xs: 12, md: 5, lg: 4 }} sx={rise(120)}>
-          <Box
-            component="dl"
-            sx={(theme) => ({
-              position: 'relative',
-              m: 0,
-              p: { xs: 2.5, md: 3 },
-              borderRadius: '20px',
-              bgcolor: 'surface.panel',
-              backdropFilter: 'blur(10px)',
-              border: `1px solid ${(theme.vars || theme).palette.surface.cardBorder}`,
-              boxShadow: (theme.vars || theme).palette.surface.cardShadow,
-            })}
-          >
-            <Box component="dt" sx={labelSx}>
-              {copy.currentRole}
-            </Box>
-            <Box component="dd" sx={{ m: 0, mt: 1 }}>
-              <Typography variant="h3" component="p" sx={{ fontSize: '1.35rem' }}>
-                {activeRole.role}
-              </Typography>
-              <Typography sx={{ mt: 0.5, fontWeight: 600, color: 'text.secondary' }}>
-                {activeRole.company} ·{' '}
-                <Box component="span" sx={{ whiteSpace: 'nowrap' }}>
-                  {activeRole.period}
-                </Box>
-              </Typography>
-            </Box>
-
-            <Box
-              component="dt"
-              sx={{ ...labelSx, mt: 2.5, pt: 2.5, borderTop: 1, borderColor: 'surface.rule' }}
-            >
-              {copy.ownProduct}
-            </Box>
-            <Box component="dd" sx={{ m: 0, mt: 1 }}>
-              <Link
-                href={website?.href}
-                target="_blank"
-                rel="noopener"
-                underline="none"
-                sx={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 0.5,
-                  color: 'text.primary',
-                  fontFamily: "'Space Grotesk Variable', 'Space Grotesk', sans-serif",
-                  fontSize: '1.35rem',
-                  fontWeight: 600,
-                  '& svg': { transition: `transform 300ms ${easeOutExpo}` },
-                  '&:hover svg': { transform: 'translate(2px, -2px)' },
-                }}
-              >
-                {featuredProject.name}
-                <ArrowOutwardRoundedIcon aria-hidden fontSize="small" />
-              </Link>
-              <Stack direction="row" spacing={1} alignItems="baseline" sx={{ mt: 1 }}>
-                <Box
-                  component="span"
-                  aria-hidden
-                  sx={{
-                    position: 'relative',
-                    top: '-1px',
-                    width: 7,
-                    height: 7,
-                    borderRadius: '50%',
-                    bgcolor: 'secondary.main',
-                    flexShrink: 0,
-                    '@media (prefers-reduced-motion: no-preference)': {
-                      '&::after': {
-                        content: '""',
-                        position: 'absolute',
-                        inset: 0,
-                        borderRadius: '50%',
-                        bgcolor: 'secondary.main',
-                        animation: 'live-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite',
-                      },
-                      '@keyframes live-ping': {
-                        '0%': { transform: 'scale(1)', opacity: 0.5 },
-                        '70%, 100%': { transform: 'scale(2.4)', opacity: 0 },
-                      },
-                    },
-                  }}
-                />
-                <Typography
-                  variant="body2"
-                  sx={{ fontWeight: 600, color: 'text.secondary', lineHeight: 1.5 }}
-                >
-                  {copy.liveOnStores}
-                </Typography>
-              </Stack>
-            </Box>
-          </Box>
+        <Grid size={{ md: 5, lg: 4 }} sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
+          <HeroMark />
         </Grid>
       </Grid>
 

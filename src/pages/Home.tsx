@@ -105,13 +105,7 @@ export default function HomePage({ locale }: HomePageProps) {
         tabIndex={-1}
         sx={{ position: 'relative', zIndex: 1, pt: { xs: 14, md: 22 }, outline: 'none' }}
       >
-        <HomeHeroSection
-          activeRole={experiences[0]}
-          copy={copy}
-          featuredProject={projects[0]}
-          kpis={kpis}
-          profile={profile}
-        />
+        <HomeHeroSection copy={copy} kpis={kpis} profile={profile} />
         <HomeTrustedBySection companyBannerLogos={companyBannerLogos} copy={copy} />
         <HomeImpactSection caseStudies={caseStudies} copy={copy} />
         <HomeExperienceSection copy={copy} experiences={experiences} />

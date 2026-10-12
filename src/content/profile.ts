@@ -92,9 +92,6 @@ export type HomeCopy = {
   heroTitle: string;
   projectsButton: string;
   linkedinButton: string;
-  currentRole: string;
-  ownProduct: string;
-  liveOnStores: string;
   factsLabel: string;
   trustedBy: string;
   impactTitle: string;
@@ -458,9 +455,6 @@ const homeCopy: Record<Locale, HomeCopy> = {
     heroTitle: 'Web and mobile products, from idea to production',
     projectsButton: 'See projects',
     linkedinButton: 'LinkedIn',
-    currentRole: 'Current role',
-    ownProduct: 'Own product',
-    liveOnStores: 'Live on the App Store and Google Play',
     factsLabel: 'Key facts',
     trustedBy: 'Trusted by',
     impactTitle: 'Impact at Deepdots',
@@ -501,9 +495,6 @@ const homeCopy: Record<Locale, HomeCopy> = {
     heroTitle: 'Productos web y móviles, de la idea a producción',
     projectsButton: 'Ver proyectos',
     linkedinButton: 'LinkedIn',
-    currentRole: 'Rol actual',
-    ownProduct: 'Producto propio',
-    liveOnStores: 'Publicada en App Store y Google Play',
     factsLabel: 'Datos clave',
     trustedBy: 'Han confiado en mí',
     impactTitle: 'Impacto en Deepdots',
