@@ -126,7 +126,7 @@ export type PortfolioContent = {
 
 const linkedin = 'https://www.linkedin.com/in/sergi-arias-fern%C3%A1ndez-ab2729148/';
 const github = 'https://github.com/sarias980';
-const email = 'sarias980@gmail.com';
+const email = 'info@sarias.dev';
 
 const logos = {
   deepdots: { src: '/logos/deepdots.webp', width: 542, height: 104 },
