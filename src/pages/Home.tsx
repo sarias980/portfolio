@@ -1,107 +1,120 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
-import { alpha, useTheme } from '@mui/material/styles';
 import HomeContactSection from '../components/home/HomeContactSection';
+import HomeExperienceSection from '../components/home/HomeExperienceSection';
+import HomeFooter from '../components/home/HomeFooter';
 import HomeHeader from '../components/home/HomeHeader';
 import HomeHeroSection from '../components/home/HomeHeroSection';
 import HomeImpactSection from '../components/home/HomeImpactSection';
-import HomeKpisSection from '../components/home/HomeKpisSection';
+import HomeProjectsSection from '../components/home/HomeProjectsSection';
+import HomeStackSection from '../components/home/HomeStackSection';
 import HomeTrustedBySection from '../components/home/HomeTrustedBySection';
-import {
-  getHomeCopy,
-  getPortfolioContent,
-  type Locale,
-} from '../content/profile';
-import withRoot, { useColorMode } from '../modules/withRoot';
-import {
-  getCardBase,
-  getHomeSections,
-  getInitialLocale,
-  localeStorageKey,
-} from './home/home.constants';
+import { getHomeCopy, getPortfolioContent, type Locale } from '../content/profile';
+import { getHomeSections } from './home/home.constants';
 
-export function HomePage() {
-  const theme = useTheme();
-  const { mode, toggleColorMode } = useColorMode();
-  const isDark = mode === 'dark';
-  const [locale, setLocale] = React.useState<Locale>(getInitialLocale);
+type HomePageProps = {
+  locale: Locale;
+};
+
+// Ambient light behind the hero: two slow-drifting brand glows over a faint
+// dot grid. Pure CSS and decorative; frozen when reduced motion is requested.
+const ambient = {
+  position: 'absolute',
+  inset: '0 0 auto 0',
+  height: { xs: 820, md: 980 },
+  overflow: 'hidden',
+  pointerEvents: 'none',
+  zIndex: 0,
+  maskImage: 'linear-gradient(180deg, #000 55%, transparent)',
+  WebkitMaskImage: 'linear-gradient(180deg, #000 55%, transparent)',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    inset: 0,
+    backgroundImage: 'radial-gradient(var(--mui-palette-surface-dotGrid) 1px, transparent 1.5px)',
+    backgroundSize: '22px 22px',
+    maskImage: 'radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%)',
+    WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%)',
+  },
+  '& > span': {
+    position: 'absolute',
+    width: { xs: 520, md: 760 },
+    height: { xs: 520, md: 760 },
+    borderRadius: '50%',
+    '@media (prefers-reduced-motion: no-preference)': {
+      animation: 'glow-drift 22s ease-in-out infinite alternate',
+    },
+  },
+  '& > span:first-of-type': {
+    top: { xs: -220, md: -300 },
+    left: { xs: -240, md: -200 },
+    background: 'radial-gradient(circle, var(--mui-palette-surface-glowSecondary), transparent 65%)',
+  },
+  '& > span:last-of-type': {
+    top: { xs: -160, md: -260 },
+    right: { xs: -260, md: -180 },
+    background: 'radial-gradient(circle, var(--mui-palette-surface-glowWarning), transparent 65%)',
+    animationDelay: '-11s',
+  },
+  '@keyframes glow-drift': {
+    from: { transform: 'translate3d(0, 0, 0) scale(1)' },
+    to: { transform: 'translate3d(60px, 40px, 0) scale(1.12)' },
+  },
+} as const;
+
+export default function HomePage({ locale }: HomePageProps) {
   const copy = getHomeCopy(locale);
-  const { caseStudies, experiences, kpis, leadershipPillars, profile, techCategories } = getPortfolioContent(locale);
-  const cardBase = React.useMemo(() => getCardBase(isDark), [isDark]);
-  const softBorder = isDark ? 'rgba(158, 176, 192, 0.28)' : 'rgba(54, 79, 107, 0.2)';
-  const softPanel = isDark ? 'rgba(24, 34, 50, 0.8)' : 'rgba(255,255,255,0.75)';
-  const sections = getHomeSections(locale);
+  const { caseStudies, experiences, kpis, profile, projects, techCategories } = getPortfolioContent(locale);
+  const sections = getHomeSections(copy);
   const companyBannerLogos = experiences.map((experience) => ({
     company: experience.company,
     website: experience.website,
-    logoUrl: experience.logoUrl,
+    logo: experience.logo,
   }));
-  const phoneHref = `tel:${profile.phone.replace(/\s+/g, '')}`;
-  const activeRole = experiences[0];
-  const marqueeLogos = [...companyBannerLogos, ...companyBannerLogos];
-
-  React.useEffect(() => {
-    window.localStorage.setItem(localeStorageKey, locale);
-    document.documentElement.lang = locale;
-  }, [locale]);
 
   return (
-    <Box id="home" sx={{ position: 'relative', backgroundColor: 'background.default' }}>
-      <HomeHeader
-        copy={copy}
-        isDark={isDark}
-        locale={locale}
-        onLocaleChange={setLocale}
-        onToggleColorMode={toggleColorMode}
-        profileName={profile.fullName}
-        sections={sections}
-        softBorder={softBorder}
-        softPanel={softPanel}
-      />
+    <Box id="home" sx={{ position: 'relative', backgroundColor: 'background.default', overflowX: 'clip' }}>
+      <Box
+        component="a"
+        href="#main"
+        sx={{
+          position: 'absolute',
+          left: 16,
+          top: -48,
+          zIndex: 1200,
+          px: 2,
+          py: 1,
+          borderRadius: 1,
+          bgcolor: 'primary.main',
+          color: 'primary.contrastText',
+          '&:focus': { top: 12 },
+        }}
+      >
+        {copy.skipToContent}
+      </Box>
+
+      <Box aria-hidden sx={ambient}>
+        <span />
+        <span />
+      </Box>
+
+      <HomeHeader copy={copy} locale={locale} profileName={profile.fullName} sections={sections} />
 
       <Box
         component="main"
-        sx={{
-          pt: { xs: 12, md: 14 },
-          background:
-            `radial-gradient(circle at 15% 10%, ${alpha(theme.palette.secondary.main, isDark ? 0.24 : 0.22)}, transparent 44%), radial-gradient(circle at 85% 8%, ${alpha(theme.palette.warning.main, isDark ? 0.2 : 0.14)}, transparent 34%), ${theme.palette.background.default}`,
-        }}
+        id="main"
+        tabIndex={-1}
+        sx={{ position: 'relative', zIndex: 1, pt: { xs: 14, md: 22 }, outline: 'none' }}
       >
-        <HomeHeroSection
-          activeRole={activeRole}
-          cardBase={cardBase}
-          copy={copy}
-          isDark={isDark}
-          profile={profile}
-          softBorder={softBorder}
-          softPanel={softPanel}
-        />
-
-        <HomeKpisSection kpis={kpis} softBorder={softBorder} />
-
-        <HomeTrustedBySection
-          companyBannerLogos={companyBannerLogos}
-          copy={copy}
-          isDark={isDark}
-          marqueeLogos={marqueeLogos}
-          softBorder={softBorder}
-        />
-
-        <HomeImpactSection
-          cardBase={cardBase}
-          caseStudies={caseStudies}
-          copy={copy}
-          experiences={experiences}
-          isDark={isDark}
-          leadershipPillars={leadershipPillars}
-          softBorder={softBorder}
-          techCategories={techCategories}
-        />
-
-        <HomeContactSection cardBase={cardBase} copy={copy} phoneHref={phoneHref} profile={profile} />
+        <HomeHeroSection copy={copy} kpis={kpis} profile={profile} />
+        <HomeTrustedBySection companyBannerLogos={companyBannerLogos} copy={copy} />
+        <HomeImpactSection caseStudies={caseStudies} copy={copy} />
+        <HomeExperienceSection copy={copy} experiences={experiences} />
+        <HomeProjectsSection copy={copy} projects={projects} />
+        <HomeStackSection copy={copy} techCategories={techCategories} />
+        <HomeContactSection copy={copy} locale={locale} profile={profile} />
       </Box>
+
+      <HomeFooter copy={copy} profile={profile} />
     </Box>
   );
 }
-
-export default withRoot(HomePage);

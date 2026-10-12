@@ -1,0 +1,16 @@
+{
+  "name": "Sergi Arias Fernández · Senior Full-Stack Engineer",
+  "short_name": "Sergi Arias",
+  "description": "Senior full-stack engineer in Barcelona. React, React Native and TypeScript.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#0f1622",
+  "theme_color": "#17263d",
+  "icons": [
+    { "src": "/icons/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icons/icon-512.png", "type": "image/png", "sizes": "512x512" },
+    { "src": "/icons/icon-maskable-512.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
+  ]
+}

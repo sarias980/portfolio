@@ -1,28 +1,32 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import HomeContactSection from '../HomeContactSection';
-import { getHomeCopy, getPortfolioContent } from '../../../content/profile';
-import { getCardBase } from '../../../pages/home/home.constants';
+import { getHomeCopy, getPortfolioContent, type Locale } from '../../../content/profile';
+import { renderWithTheme } from '../../../test/renderWithTheme';
 
 describe('HomeContactSection', () => {
-  it('renders contact copy and actionable links', () => {
-    const copy = getHomeCopy('en');
-    const { profile } = getPortfolioContent('en');
-    const phoneHref = `tel:${profile.phone.replace(/\s+/g, '')}`;
+  it.each([
+    ['en', '/cv/Sergi_Arias_Fernandez_CV_EN.pdf'],
+    ['es', '/cv/Sergi_Arias_Fernandez_CV_ES.pdf'],
+  ] as [Locale, string][])('renders neutral contact actions in %s', (locale, cvUrl) => {
+    const copy = getHomeCopy(locale);
+    const { profile } = getPortfolioContent(locale);
 
-    render(
-      <HomeContactSection
-        cardBase={getCardBase(false)}
-        copy={copy}
-        phoneHref={phoneHref}
-        profile={profile}
-      />,
-    );
+    renderWithTheme(<HomeContactSection copy={copy} locale={locale} profile={profile} />);
 
-    expect(screen.getByRole('heading', { name: copy.contactTitle })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: copy.contactTitle })).toBeInTheDocument();
     expect(screen.getByText(copy.contactSummary)).toBeInTheDocument();
 
-    expect(screen.getByRole('link', { name: copy.linkedinContactButton })).toHaveAttribute('href', profile.linkedin);
-    expect(screen.getByRole('link', { name: profile.email })).toHaveAttribute('href', `mailto:${profile.email}`);
-    expect(screen.getByRole('link', { name: profile.phone })).toHaveAttribute('href', phoneHref);
+    expect(screen.getByRole('link', { name: profile.email })).toHaveAttribute(
+      'href',
+      `mailto:${profile.email}`,
+    );
+    expect(screen.getByRole('link', { name: copy.linkedinContactButton })).toHaveAttribute(
+      'href',
+      profile.linkedin,
+    );
+
+    const cv = screen.getByRole('link', { name: copy.downloadCvButton });
+    expect(cv).toHaveAttribute('href', cvUrl);
+    expect(cv).toHaveAttribute('download');
   });
 });

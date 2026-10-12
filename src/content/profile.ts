@@ -1,3 +1,7 @@
+export type Locale = 'en' | 'es';
+
+export const locales: Locale[] = ['en', 'es'];
+
 export type KPI = {
   label: string;
   value: string;
@@ -6,31 +10,40 @@ export type KPI = {
 export type CaseStudy = {
   title: string;
   summary: string;
-  impact: string;
   stack: string[];
-  link: string;
-};
-
-export type LeadershipPillar = {
-  title: string;
-  description: string;
 };
 
 export type ExperienceItem = {
   role: string;
   company: string;
   website: string;
-  logoUrl: string;
+  logo: CompanyLogo;
   period: string;
   highlights: string[];
 };
 
-export type PersonalProject = {
-  role: string;
-  company: string;
-  period: string;
+export type CompanyLogo = {
+  src: string;
+  width: number;
+  height: number;
+};
+
+export type ProjectLinkKind = 'website' | 'appStore' | 'googlePlay';
+
+export type ProjectLink = {
+  kind: ProjectLinkKind;
+  label: string;
+  href: string;
+};
+
+export type Project = {
+  name: string;
+  role?: string;
+  period?: string;
+  status?: string;
   summary: string;
-  highlights: string[];
+  stack: string[];
+  links: ProjectLink[];
 };
 
 export type EducationItem = {
@@ -43,50 +56,60 @@ export type EducationItem = {
 export type Profile = {
   fullName: string;
   headline: string;
+  jobTitle: string;
   summary: string;
+  location: string;
   linkedin: string;
+  github: string;
   email: string;
-  phone: string;
+  cvUrl: string;
 };
 
+export type TechCategoryId = 'frontend' | 'backend' | 'cloud' | 'quality' | 'languages';
+
 export type TechCategory = {
+  id: TechCategoryId;
   title: string;
   items: string[];
 };
 
-export type Locale = 'en' | 'es';
-
 export type HomeCopy = {
+  metaTitle: string;
+  metaDescription: string;
+  ogImageAlt: string;
+  skipToContent: string;
   sections: {
     impact: string;
+    experience: string;
+    projects: string;
+    stack: string;
     contact: string;
   };
+  mainNavLabel: string;
   languageLabel: string;
-  darkModeLabel: string;
-  lightModeLabel: string;
+  colorModeLabel: string;
   roleChip: string;
   heroTitle: string;
-  impactButton: string;
+  projectsButton: string;
   linkedinButton: string;
-  currentRole: string;
+  factsLabel: string;
   trustedBy: string;
-  resultsMatrix: string;
   impactTitle: string;
-  deliveryModel: string;
-  deliveryModelSummary: string;
-  journeyLog: string;
+  impactSummary: string;
   careerTimeline: string;
   careerTimelineSummary: string;
   currentTag: string;
-  stackMatrix: string;
-  leadershipApproachTitle: string;
+  projectsTitle: string;
+  projectsSummary: string;
   coreStack: string;
   coreStackSummary: string;
-  impactDetailsLinkLabel: string;
   contactTitle: string;
   contactSummary: string;
   linkedinContactButton: string;
+  downloadCvButton: string;
   companyWebsiteLabel: string;
+  projectLinkLabel: string;
+  footerNote: string;
 };
 
 export type PortfolioContent = {
@@ -94,302 +117,152 @@ export type PortfolioContent = {
   kpis: KPI[];
   experiences: ExperienceItem[];
   caseStudies: CaseStudy[];
-  leadershipPillars: LeadershipPillar[];
+  projects: Project[];
   techCategories: TechCategory[];
 };
 
-export const profile: Profile = {
+const linkedin = 'https://www.linkedin.com/in/sergi-arias-fern%C3%A1ndez-ab2729148/';
+const github = 'https://github.com/sarias980';
+const email = 'info@sarias.dev';
+
+const logos = {
+  deepdots: { src: '/logos/deepdots.webp', width: 542, height: 104 },
+  coachendo: { src: '/logos/coachendo.webp', width: 100, height: 100 },
+  uve: { src: '/logos/uve-solutions.webp', width: 274, height: 93 },
+  alten: { src: '/logos/alten.webp', width: 64, height: 104 },
+  admira: { src: '/logos/admira.svg', width: 500, height: 130 },
+} satisfies Record<string, CompanyLogo>;
+
+const profileEn: Profile = {
   fullName: 'Sergi Arias Fernández',
-  headline: 'Senior Frontend Engineer | Frontend Technical Lead | React & TypeScript Specialist',
+  headline: 'Senior Full-Stack Engineer · React, React Native & TypeScript',
+  jobTitle: 'Senior Full-Stack Engineer',
   summary:
-    'Senior Frontend Engineer with 10+ years of experience building scalable web applications and leading frontend architecture from scratch.',
-  linkedin: 'https://www.linkedin.com/in/sergi-arias-fern%C3%A1ndez-ab2729148/',
-  email: 'sarias980@gmail.com',
-  phone: '+34 657317670',
+    'Senior full-stack engineer with 10+ years building web and mobile products. I take products from idea to production: frontend architecture, API and database, apps live on the App Store and Google Play, payments and CI/CD.',
+  location: 'Barcelona, Spain',
+  linkedin,
+  github,
+  email,
+  cvUrl: '/cv/Sergi_Arias_Fernandez_CV_EN.pdf',
 };
 
-export const kpis: KPI[] = [
+const profileEs: Profile = {
+  ...profileEn,
+  headline: 'Ingeniero Full-Stack Senior · React, React Native y TypeScript',
+  jobTitle: 'Ingeniero Full-Stack Senior',
+  summary:
+    'Ingeniero full-stack senior con más de 10 años construyendo productos web y móviles. Llevo productos de la idea a producción: arquitectura frontend, API y base de datos, apps publicadas en App Store y Google Play, pagos y CI/CD.',
+  location: 'Barcelona, España',
+  cvUrl: '/cv/Sergi_Arias_Fernandez_CV_ES.pdf',
+};
+
+const kpisEn: KPI[] = [
   { label: 'Years of experience', value: '10+' },
   { label: 'Projects delivered', value: '20+' },
-  { label: 'Continents impacted', value: '3' },
+  { label: 'From infrastructure to app', value: 'Full-stack' },
 ];
 
-export const experiences: ExperienceItem[] = [
+const kpisEs: KPI[] = [
+  { label: 'Años de experiencia', value: '10+' },
+  { label: 'Proyectos entregados', value: '20+' },
+  { label: 'De la infraestructura a la app', value: 'Full-stack' },
+];
+
+const experiencesEn: ExperienceItem[] = [
   {
     role: 'Frontend Technical Lead',
     company: 'Deepdots',
     website: 'https://deepdots.com',
-    logoUrl: '/logos/deepdots-clean.png',
-    period: 'Sep 2023 - Present',
+    logo: logos.deepdots,
+    period: 'Sep 2023 – Present',
     highlights: [
       'Led the frontend architecture from project inception in a distributed multi-repository environment.',
-      'Designed and implemented scalable React + TypeScript solutions for a data-driven product processing 10k+ feedback inputs daily.',
-      'Defined development methodologies, documentation standards and CI/CD workflows using GitHub Actions.',
-      'Integrated frontend applications with Node.js services and BigQuery on GCP.',
-      'Established Redux-based state management architecture and a testing strategy using Jest.',
-      'Conducted code reviews and enforced high code quality standards across the team.',
-      'Collaborated closely with Product and clients to design and deliver optimized user interfaces.',
-      'Contributed to team growth from 3 to 6 engineers by defining technical standards and onboarding processes.',
     ],
   },
   {
     role: 'Senior Frontend Engineer',
     company: 'Coachendo',
     website: 'https://coachendo.com',
-    logoUrl: '/logos/coachendo-clean.png',
-    period: '2022 - 2023',
-    highlights: [
-      'Designed a complete multi-platform frontend architecture based on React.',
-      'Implemented an admin web app to manage app content.',
-      'Developed a chat-focused PWA with an atomic design structure.',
-      'Defined auto-deploy and hosting workflows in Firebase.',
-    ],
+    logo: logos.coachendo,
+    period: '2022 – 2023',
+    highlights: ['Designed a complete multi-platform frontend architecture based on React.'],
   },
   {
     role: 'Apps Technical Lead',
     company: 'UVE Solutions',
     website: 'https://uvesolutions.com',
-    logoUrl: '/logos/uve-solutions-clean.png',
-    period: '2021 - 2022',
-    highlights: [
-      'Implemented two hybrid apps for multiple platforms.',
-      'Coordinated two small development teams as technical lead.',
-      'Defined technical tasks and effort estimations for team execution.',
-      'Collaborated in technical meetings to improve company architecture decisions.',
-    ],
+    logo: logos.uve,
+    period: '2021 – 2022',
+    highlights: ['Implemented two hybrid apps for multiple platforms.'],
   },
   {
     role: 'Senior Multi Platform Developer',
     company: 'Alten',
     website: 'https://www.alten.com',
-    logoUrl: '/logos/alten-clean.png',
-    period: '2018 - 2021',
-    highlights: [
-      'Implemented two hybrid apps across multiple platforms.',
-      'Defined technical tasks and estimations for team execution.',
-      'Supported internal teams in app implementation and delivery.',
-    ],
+    logo: logos.alten,
+    period: '2018 – 2021',
+    highlights: ['Implemented two hybrid apps across multiple platforms.'],
   },
   {
     role: 'Junior Multi Platform Developer',
     company: 'Admira Digital Networks',
     website: 'https://www.admira.com',
-    logoUrl: '/logos/admira-text_green.svg',
-    period: '2015 - 2018',
-    highlights: [
-      'Developed new web platform features and reusable components.',
-      'Improved code quality and resolved product bugs.',
-      'Designed custom technical solutions for clients.',
-    ],
+    logo: logos.admira,
+    period: '2015 – 2018',
+    highlights: ['Developed new web platform features and reusable components.'],
   },
 ];
 
-export const personalProjects: PersonalProject[] = [
+const experiencesEs: ExperienceItem[] = [
   {
-    role: 'Software Engineer (Founder Team)',
-    company: 'Mint5.io',
-    period: '2021 - Present',
-    summary:
-      'Mint5 is a platform to create NFTs from Instagram posts, then sell and trade them through a simplified flow.',
+    ...experiencesEn[0],
+    role: 'Líder Técnico Frontend',
+    period: 'Sep 2023 – Actualidad',
     highlights: [
-      'Part of the founding team as software engineer.',
-      'Owned frontend implementation for web and mobile experiences.',
-      'Integrated product flows with Web3 capabilities using Ionic and React.',
+      'Lideré la arquitectura frontend desde el inicio del proyecto en un entorno distribuido con múltiples repositorios.',
     ],
+  },
+  {
+    ...experiencesEn[1],
+    role: 'Ingeniero Frontend Senior',
+    highlights: ['Diseñé una arquitectura frontend completa y multiplataforma basada en React.'],
+  },
+  {
+    ...experiencesEn[2],
+    role: 'Líder Técnico de Apps',
+    highlights: ['Implementé dos aplicaciones híbridas para múltiples plataformas.'],
+  },
+  {
+    ...experiencesEn[3],
+    role: 'Desarrollador Senior Multiplataforma',
+    highlights: ['Implementé dos aplicaciones híbridas en múltiples plataformas.'],
+  },
+  {
+    ...experiencesEn[4],
+    role: 'Desarrollador Junior Multiplataforma',
+    highlights: ['Desarrollé nuevas funcionalidades web y componentes reutilizables.'],
   },
 ];
 
-// Case studies are grouped by impact area so the UI can scale when new roles are added.
-export const caseStudies: CaseStudy[] = [
+// Impact cards describe the current role at Deepdots.
+const caseStudiesEn: CaseStudy[] = [
   {
     title: 'Architecture from Day 0',
     summary:
       'Built the frontend foundation from scratch in a distributed, multi-repository setup aligned with product roadmap constraints.',
-    impact:
-      'Created a scalable structure that enabled predictable delivery across an expanding engineering team.',
     stack: ['React', 'TypeScript', 'Redux', 'Monorepo Strategy'],
-    link: profile.linkedin,
   },
   {
     title: 'Data-Driven Product at Scale',
     summary:
       'Implemented interfaces and flows for a platform that processes and visualizes 10k+ feedback inputs per day.',
-    impact:
-      'Improved product clarity and usability for high-volume data operations through robust frontend patterns.',
     stack: ['React', 'GCP', 'BigQuery', 'Node.js Integration'],
-    link: profile.linkedin,
   },
   {
     title: 'Quality and Team Enablement',
     summary:
       'Defined engineering standards, CI/CD pipelines and review practices while mentoring new team members.',
-    impact:
-      'Raised code quality consistency and supported team growth from 3 to 6 engineers.',
     stack: ['GitHub Actions', 'Jest', 'Code Review', 'Onboarding'],
-    link: profile.linkedin,
-  },
-];
-
-export const leadershipPillars: LeadershipPillar[] = [
-  {
-    title: 'Architecture with Product Focus',
-    description:
-      'I define frontend architecture around business goals so technical decisions directly support product outcomes.',
-  },
-  {
-    title: 'Operational Excellence',
-    description:
-      'I build clear workflows, documentation and CI/CD pipelines so teams can ship fast without compromising quality.',
-  },
-  {
-    title: 'Team Multiplication',
-    description:
-      'I mentor engineers through standards, reviews and onboarding processes that scale quality as teams grow.',
-  },
-];
-
-export const education: EducationItem[] = [
-  {
-    period: '2016 - 2018',
-    title: 'Development of Multi Platform Applications',
-    institution: 'Institute Poble Nou',
-    location: 'Barcelona',
-  },
-  {
-    period: '2014 - 2016',
-    title: 'Computer Systems Management in the Network',
-    institution: 'Institute Puig',
-    location: 'Barcelona',
-  },
-];
-
-export const languages: string[] = ['Spanish', 'Catalan', 'English'];
-
-export const techStack: string[] = [
-  'React',
-  'TypeScript',
-  'JavaScript',
-  'Angular',
-  'Ionic',
-  'React Native',
-  'Redux',
-  'Firebase',
-  'Node.js',
-  'BigQuery',
-  'GCP',
-  'GitHub Actions',
-  'Jest',
-  'SQL',
-  'NoSQL',
-  'Product Collaboration',
-];
-
-export const techCategories: TechCategory[] = [
-  {
-    title: 'Frontend',
-    items: ['React', 'TypeScript', 'JavaScript', 'Angular', 'Ionic', 'React Native', 'Redux'],
-  },
-  {
-    title: 'Backend & Data',
-    items: ['Node.js', 'BigQuery', 'SQL', 'NoSQL'],
-  },
-  {
-    title: 'Cloud & Delivery',
-    items: ['Firebase', 'GCP', 'GitHub Actions', 'Jest'],
-  },
-  {
-    title: 'Collaboration',
-    items: ['Product Collaboration'],
-  },
-  {
-    title: 'Languages',
-    items: languages,
-  },
-];
-
-const profileEs: Profile = {
-  fullName: 'Sergi Arias Fernández',
-  headline: 'Ingeniero Frontend Senior | Líder Técnico Frontend | Especialista en React y TypeScript',
-  summary:
-    'Ingeniero Frontend senior con más de 10 años de experiencia creando aplicaciones web escalables y liderando arquitectura frontend desde cero.',
-  linkedin: profile.linkedin,
-  email: profile.email,
-  phone: profile.phone,
-};
-
-const kpisEs: KPI[] = [
-  { label: 'Años de experiencia', value: '10+' },
-  { label: 'Proyectos entregados', value: '20+' },
-  { label: 'Continentes impactados', value: '3' },
-];
-
-const experiencesEs: ExperienceItem[] = [
-  {
-    role: 'Líder Técnico Frontend',
-    company: 'Deepdots',
-    website: 'https://deepdots.com',
-    logoUrl: '/logos/deepdots-clean.png',
-    period: 'Sep 2023 - Actualidad',
-    highlights: [
-      'Lideré la arquitectura frontend desde el inicio del proyecto en un entorno distribuido con múltiples repositorios.',
-      'Diseñé e implementé soluciones escalables con React + TypeScript para un producto data-driven que procesa más de 10k entradas de feedback al día.',
-      'Definí metodologías de desarrollo, estándares de documentación y flujos CI/CD con GitHub Actions.',
-      'Integré aplicaciones frontend con servicios Node.js y BigQuery en GCP.',
-      'Establecí una arquitectura de estado basada en Redux y una estrategia de testing con Jest.',
-      'Realicé code reviews y mantuve altos estándares de calidad en todo el equipo.',
-      'Colaboré estrechamente con Producto y clientes para diseñar y entregar interfaces optimizadas.',
-      'Contribuí al crecimiento del equipo de 3 a 6 ingenieros definiendo estándares técnicos y procesos de onboarding.',
-    ],
-  },
-  {
-    role: 'Ingeniero Frontend Senior',
-    company: 'Coachendo',
-    website: 'https://coachendo.com',
-    logoUrl: '/logos/coachendo-clean.png',
-    period: '2022 - 2023',
-    highlights: [
-      'Diseñé una arquitectura frontend completa y multiplataforma basada en React.',
-      'Implementé una app web de administración para gestionar el contenido de la aplicación.',
-      'Desarrollé una PWA orientada a chat con estructura de diseño atómico.',
-      'Definí flujos de auto-deploy y hosting en Firebase.',
-    ],
-  },
-  {
-    role: 'Líder Técnico de Apps',
-    company: 'UVE Solutions',
-    website: 'https://uvesolutions.com',
-    logoUrl: '/logos/uve-solutions-clean.png',
-    period: '2021 - 2022',
-    highlights: [
-      'Implementé dos aplicaciones híbridas para múltiples plataformas.',
-      'Coordiné dos equipos pequeños de desarrollo como líder técnico.',
-      'Definí tareas técnicas y estimaciones de esfuerzo para la ejecución del equipo.',
-      'Colaboré en reuniones técnicas para mejorar decisiones de arquitectura de la compañía.',
-    ],
-  },
-  {
-    role: 'Desarrollador Senior Multiplataforma',
-    company: 'Alten',
-    website: 'https://www.alten.com',
-    logoUrl: '/logos/alten-clean.png',
-    period: '2018 - 2021',
-    highlights: [
-      'Implementé dos aplicaciones híbridas en múltiples plataformas.',
-      'Definí tareas técnicas y estimaciones para la ejecución del equipo.',
-      'Di soporte a equipos internos en implementación y entrega de aplicaciones.',
-    ],
-  },
-  {
-    role: 'Desarrollador Junior Multiplataforma',
-    company: 'Admira Digital Networks',
-    website: 'https://www.admira.com',
-    logoUrl: '/logos/admira-text_green.svg',
-    period: '2015 - 2018',
-    highlights: [
-      'Desarrollé nuevas funcionalidades web y componentes reutilizables.',
-      'Mejoré la calidad del código y resolví bugs de producto.',
-      'Diseñé soluciones técnicas personalizadas para clientes.',
-    ],
   },
 ];
 
@@ -398,154 +271,268 @@ const caseStudiesEs: CaseStudy[] = [
     title: 'Arquitectura desde el día 0',
     summary:
       'Construí la base frontend desde cero en una configuración distribuida y multi-repositorio alineada con las restricciones del roadmap de producto.',
-    impact:
-      'Creé una estructura escalable que permitió una entrega predecible en un equipo de ingeniería en expansión.',
     stack: ['React', 'TypeScript', 'Redux', 'Estrategia Monorepo'],
-    link: profile.linkedin,
   },
   {
     title: 'Producto data-driven a escala',
     summary:
       'Implementé interfaces y flujos para una plataforma que procesa y visualiza más de 10k entradas de feedback por día.',
-    impact:
-      'Mejoré la claridad de producto y la usabilidad en operaciones de datos de alto volumen mediante patrones frontend robustos.',
     stack: ['React', 'GCP', 'BigQuery', 'Integración Node.js'],
-    link: profile.linkedin,
   },
   {
     title: 'Calidad y habilitación del equipo',
     summary:
       'Definí estándares de ingeniería, pipelines de CI/CD y prácticas de revisión mientras mentorizaba a nuevos miembros del equipo.',
-    impact:
-      'Elevé la consistencia de calidad de código y apoyé el crecimiento del equipo de 3 a 6 ingenieros.',
     stack: ['GitHub Actions', 'Jest', 'Code Review', 'Onboarding'],
-    link: profile.linkedin,
   },
 ];
 
-const leadershipPillarsEs: LeadershipPillar[] = [
+const touryTellerLinks = (websiteLabel: string): ProjectLink[] => [
+  { kind: 'website', label: websiteLabel, href: 'https://touryteller.com' },
+  { kind: 'appStore', label: 'App Store', href: 'https://apps.apple.com/es/app/touryteller/id6761470076' },
   {
-    title: 'Arquitectura orientada a producto',
-    description:
-      'Defino la arquitectura frontend en torno a objetivos de negocio, asegurando que las decisiones técnicas apoyen directamente los resultados de producto.',
-  },
-  {
-    title: 'Excelencia operacional',
-    description:
-      'Construyo workflows claros, documentación y pipelines de CI/CD para que los equipos entreguen rápido sin comprometer la calidad.',
-  },
-  {
-    title: 'Multiplicación del equipo',
-    description:
-      'Mentorizo a ingenieros mediante estándares, revisiones y procesos de onboarding que escalan la calidad a medida que crecen los equipos.',
+    kind: 'googlePlay',
+    label: 'Google Play',
+    href: 'https://play.google.com/store/apps/details?id=com.touryteller',
   },
 ];
 
-const languagesEs: string[] = ['Español', 'Catalán', 'Inglés'];
+const projectsEn: Project[] = [
+  {
+    name: 'TouryTeller',
+    role: 'CTO and sole engineer',
+    summary:
+      'Gamified city tour app live on the App Store and Google Play. Users explore the city through challenges, geolocated checkpoints and points-and-levels progression; local creators publish and sell their tours from their own dashboard, with Stripe Connect payouts. I built the whole product: infrastructure, API, mobile app, admin panel, a self-hosted machine translation service and the design.',
+    stack: [
+      'React Native',
+      'Fastify',
+      'Prisma',
+      'PostgreSQL',
+      'Redis',
+      'Stripe',
+      'Mapbox',
+      'FastAPI',
+      'Railway',
+      'GitHub Actions',
+    ],
+    links: touryTellerLinks('touryteller.com'),
+  },
+  {
+    name: 'ACM Barcelona',
+    summary:
+      'Website for a Barcelona motorcycle workshop founded by former Ducati racing-team mechanics. It leads with that differentiator and drives visitors to call, message on WhatsApp or request a quote.',
+    stack: ['Next.js', 'React', 'Tailwind CSS', 'Vercel'],
+    links: [{ kind: 'website', label: 'acmbarcelona.com', href: 'https://acmbarcelona.com' }],
+  },
+  {
+    name: 'lidiamourelo.com',
+    summary:
+      'Bilingual website for a psychology practice, with a technical and SEO audit. I traced five SEO issues (broken canonicals, duplicate hreflang, identical meta descriptions…) to a single root cause, head tags duplicated during prerendering, and fixed it in production.',
+    stack: ['React', 'Vite', 'Prerendering', 'Firebase Hosting'],
+    links: [{ kind: 'website', label: 'lidiamourelo.com', href: 'https://lidiamourelo.com' }],
+  },
+  {
+    name: 'Corvi',
+    status: 'In development',
+    summary:
+      'Private invoicing tool for Spanish freelancers: correct numbering and totals, corrective invoices, payments and a copy of every document in the accountant’s Google Drive. Tax rules are enforced in the database schema, and it all runs on Cloudflare’s free tier.',
+    stack: ['React', 'Vite', 'Cloudflare Workers', 'Hono', 'D1', 'Playwright'],
+    links: [],
+  },
+  {
+    name: 'Mint5.io',
+    role: 'Founding engineer',
+    period: '2021 – 2022',
+    summary:
+      'Platform to mint NFTs from Instagram posts and trade them. As a founding engineer I led the web and mobile frontend with Ionic and Angular, with Web3 integration on Polygon.',
+    stack: ['Ionic', 'Angular', 'Web3', 'Polygon'],
+    links: [],
+  },
+];
+
+const projectsEs: Project[] = [
+  {
+    ...projectsEn[0],
+    role: 'CTO y único ingeniero',
+    summary:
+      'App de rutas urbanas gamificadas publicada en App Store y Google Play. Los usuarios recorren la ciudad con retos, checkpoints geolocalizados y progresión por puntos y niveles; los creadores locales publican y venden sus rutas desde un panel propio, con cobros por Stripe Connect. Construí el producto entero: infraestructura, API, app móvil, panel de administración, un servicio propio de traducción automática y el diseño.',
+  },
+  {
+    ...projectsEn[1],
+    summary:
+      'Web de un taller de motos de Barcelona fundado por exmecánicos del equipo de competición de Ducati. Pone ese valor diferencial en primer plano y lleva al visitante a llamar, escribir por WhatsApp o pedir presupuesto.',
+  },
+  {
+    ...projectsEn[2],
+    summary:
+      'Web en español e inglés de una consulta de psicología, con auditoría técnica y SEO. Detecté que cinco errores de SEO (canonicals rotos, hreflang duplicado, meta descriptions idénticas…) tenían una sola causa, etiquetas del head duplicadas al prerenderizar, y lo corregí en producción.',
+    stack: ['React', 'Vite', 'Prerenderizado', 'Firebase Hosting'],
+  },
+  {
+    ...projectsEn[3],
+    status: 'En desarrollo',
+    summary:
+      'Aplicación privada para facturar como autónomo: numeración y totales correctos, rectificativas, cobros y copia de cada documento en el Drive de la gestoría. Las reglas fiscales están en el esquema de la base de datos y todo funciona en el plan gratuito de Cloudflare.',
+  },
+  {
+    ...projectsEn[4],
+    role: 'Ingeniero del equipo fundador',
+    summary:
+      'Plataforma para crear NFTs a partir de publicaciones de Instagram y comerciar con ellos. Como ingeniero del equipo fundador lideré el frontend web y móvil con Ionic y Angular, con integración Web3 en Polygon.',
+  },
+];
+
+// Not rendered yet; kept for the CV and future use.
+export const education: EducationItem[] = [
+  {
+    period: '2016 – 2018',
+    title: 'Development of Multi Platform Applications',
+    institution: 'Institut Poblenou',
+    location: 'Barcelona',
+  },
+  {
+    period: '2014 – 2016',
+    title: 'Computer Systems Management in the Network',
+    institution: 'Institut Puig',
+    location: 'Barcelona',
+  },
+];
+
+const techCategoriesEn: TechCategory[] = [
+  {
+    id: 'frontend',
+    title: 'Frontend & mobile',
+    items: ['React', 'React Native', 'TypeScript', 'Next.js', 'Redux', 'Zustand', 'TanStack Query'],
+  },
+  {
+    id: 'backend',
+    title: 'Backend',
+    items: ['Node.js', 'Fastify', 'PostgreSQL', 'Prisma', 'Redis', 'Python (FastAPI)'],
+  },
+  {
+    id: 'cloud',
+    title: 'Cloud & DevOps',
+    items: ['GCP', 'BigQuery', 'Firebase', 'Cloudflare', 'Railway', 'Docker', 'GitHub Actions'],
+  },
+  {
+    id: 'quality',
+    title: 'Quality',
+    items: ['Jest', 'Vitest', 'Testing Library', 'Playwright', 'Sentry'],
+  },
+  {
+    id: 'languages',
+    title: 'Languages',
+    items: ['Spanish', 'Catalan', 'English'],
+  },
+];
 
 const techCategoriesEs: TechCategory[] = [
-  {
-    title: 'Frontend',
-    items: ['React', 'TypeScript', 'JavaScript', 'Angular', 'Ionic', 'React Native', 'Redux'],
-  },
-  {
-    title: 'Backend y Datos',
-    items: ['Node.js', 'BigQuery', 'SQL', 'NoSQL'],
-  },
-  {
-    title: 'Cloud y Delivery',
-    items: ['Firebase', 'GCP', 'GitHub Actions', 'Jest'],
-  },
-  {
-    title: 'Colaboración',
-    items: ['Colaboración con Producto'],
-  },
-  {
-    title: 'Idiomas',
-    items: languagesEs,
-  },
+  { ...techCategoriesEn[0], title: 'Frontend y móvil' },
+  techCategoriesEn[1],
+  { ...techCategoriesEn[2], title: 'Cloud y DevOps' },
+  { ...techCategoriesEn[3], title: 'Calidad' },
+  { ...techCategoriesEn[4], title: 'Idiomas', items: ['Español', 'Catalán', 'Inglés'] },
 ];
 
 const homeCopy: Record<Locale, HomeCopy> = {
   en: {
-    sections: { impact: 'Impact', contact: 'Contact' },
-    languageLabel: 'Select language',
-    darkModeLabel: 'Enable dark mode',
-    lightModeLabel: 'Enable light mode',
-    roleChip: 'Senior Frontend Engineer · Frontend Technical Lead',
-    heroTitle: 'Product-focused frontend architecture',
-    impactButton: 'See impact',
-    linkedinButton: 'Open LinkedIn',
-    currentRole: 'Current Role',
+    metaTitle: 'Sergi Arias Fernández · Senior Full-Stack Engineer',
+    metaDescription:
+      'Senior full-stack engineer in Barcelona. React, React Native and TypeScript: web and mobile products from idea to production.',
+    ogImageAlt: 'Sergi Arias Fernández, Senior Full-Stack Engineer',
+    skipToContent: 'Skip to content',
+    sections: {
+      impact: 'Impact',
+      experience: 'Experience',
+      projects: 'Projects',
+      stack: 'Stack',
+      contact: 'Contact',
+    },
+    mainNavLabel: 'Main',
+    languageLabel: 'Language',
+    colorModeLabel: 'Dark mode',
+    roleChip: profileEn.headline,
+    heroTitle: 'Web and mobile products, from idea to production',
+    projectsButton: 'See projects',
+    linkedinButton: 'LinkedIn',
+    factsLabel: 'Key facts',
     trustedBy: 'Trusted by',
-    resultsMatrix: 'Results Matrix',
-    impactTitle: 'Impact',
-    deliveryModel: 'Delivery Model',
-    deliveryModelSummary:
-      'A repeatable execution model with architecture standards, CI/CD automation and team enablement.',
-    journeyLog: 'Journey Log',
-    careerTimeline: 'Career Timeline',
-    careerTimelineSummary: 'Architecture ownership, product delivery and team growth over time.',
+    impactTitle: 'Impact at Deepdots',
+    impactSummary: 'Frontend technical lead for a data-driven React and TypeScript product, from day 0.',
+    careerTimeline: 'Experience',
+    careerTimelineSummary: 'From multi-platform apps to technical leadership and full-stack products.',
     currentTag: 'Current',
-    stackMatrix: 'Stack Matrix',
-    leadershipApproachTitle: 'Leadership Approach',
-    coreStack: 'Core Stack',
-    coreStackSummary: 'Selected technologies used repeatedly in production environments.',
-    impactDetailsLinkLabel: 'View details',
-    contactTitle: 'Let’s build the next high-impact product.',
-    contactSummary:
-      'If your team needs senior frontend leadership with execution focus, I am open to connect.',
-    linkedinContactButton: 'Contact on LinkedIn',
+    projectsTitle: 'Projects',
+    projectsSummary:
+      'Web and mobile products built end to end with React, React Native and TypeScript, from the database to the stores.',
+    coreStack: 'Core stack',
+    coreStackSummary: 'Technologies I use in production, from the interface to the infrastructure.',
+    contactTitle: 'Get in touch',
+    contactSummary: 'The quickest way to reach me is by email or LinkedIn.',
+    linkedinContactButton: 'LinkedIn',
+    downloadCvButton: 'Download CV',
     companyWebsiteLabel: 'Open {{company}} website',
+    projectLinkLabel: '{{project}} on {{target}}',
+    footerNote: 'Full-stack engineer based in Barcelona.',
   },
   es: {
-    sections: { impact: 'Impacto', contact: 'Contacto' },
-    languageLabel: 'Seleccionar idioma',
-    darkModeLabel: 'Activar modo oscuro',
-    lightModeLabel: 'Activar modo claro',
-    roleChip: 'Ingeniero Frontend Senior · Líder Técnico Frontend',
-    heroTitle: 'Arquitectura frontend orientada a producto',
-    impactButton: 'Ver impacto',
-    linkedinButton: 'Abrir LinkedIn',
-    currentRole: 'Rol actual',
+    metaTitle: 'Sergi Arias Fernández · Ingeniero Full-Stack Senior',
+    metaDescription:
+      'Ingeniero full-stack senior en Barcelona. React, React Native y TypeScript: productos web y móviles de la idea a producción.',
+    ogImageAlt: 'Sergi Arias Fernández, Ingeniero Full-Stack Senior',
+    skipToContent: 'Saltar al contenido',
+    sections: {
+      impact: 'Impacto',
+      experience: 'Trayectoria',
+      projects: 'Proyectos',
+      stack: 'Stack',
+      contact: 'Contacto',
+    },
+    mainNavLabel: 'Principal',
+    languageLabel: 'Idioma',
+    colorModeLabel: 'Modo oscuro',
+    roleChip: profileEs.headline,
+    heroTitle: 'Productos web y móviles, de la idea a producción',
+    projectsButton: 'Ver proyectos',
+    linkedinButton: 'LinkedIn',
+    factsLabel: 'Datos clave',
     trustedBy: 'Han confiado en mí',
-    resultsMatrix: 'Matriz de resultados',
-    impactTitle: 'Impacto',
-    deliveryModel: 'Modelo de entrega',
-    deliveryModelSummary:
-      'Un modelo de ejecución repetible con estándares de arquitectura, automatización CI/CD y habilitación del equipo.',
-    journeyLog: 'Recorrido profesional',
-    careerTimeline: 'Timeline profesional',
-    careerTimelineSummary: 'Ownership de arquitectura, entrega de producto y crecimiento del equipo en el tiempo.',
+    impactTitle: 'Impacto en Deepdots',
+    impactSummary:
+      'Líder técnico frontend de un producto data-driven con React y TypeScript, desde el día 0.',
+    careerTimeline: 'Trayectoria',
+    careerTimelineSummary: 'De las apps multiplataforma al liderazgo técnico y los productos full-stack.',
     currentTag: 'Actual',
-    stackMatrix: 'Matriz tecnológica',
-    leadershipApproachTitle: 'Enfoque de liderazgo',
+    projectsTitle: 'Proyectos',
+    projectsSummary:
+      'Productos web y móviles construidos de principio a fin con React, React Native y TypeScript, de la base de datos a las stores.',
     coreStack: 'Stack principal',
-    coreStackSummary: 'Tecnologías seleccionadas usadas de forma recurrente en entornos de producción.',
-    impactDetailsLinkLabel: 'Ver detalles',
-    contactTitle: 'Construyamos el próximo producto de alto impacto.',
-    contactSummary:
-      'Si tu equipo necesita liderazgo frontend senior con foco en ejecución, estaré encantado de conectar.',
-    linkedinContactButton: 'Contactar por LinkedIn',
+    coreStackSummary: 'Tecnologías que uso en producción, de la interfaz a la infraestructura.',
+    contactTitle: 'Contacto',
+    contactSummary: 'La forma más rápida de contactarme es por email o LinkedIn.',
+    linkedinContactButton: 'LinkedIn',
+    downloadCvButton: 'Descargar CV',
     companyWebsiteLabel: 'Abrir web de {{company}}',
+    projectLinkLabel: '{{project}} en {{target}}',
+    footerNote: 'Ingeniero full-stack en Barcelona.',
   },
 };
 
 const portfolioContent: Record<Locale, PortfolioContent> = {
   en: {
-    profile,
-    kpis,
-    experiences,
-    caseStudies,
-    leadershipPillars,
-    techCategories,
+    profile: profileEn,
+    kpis: kpisEn,
+    experiences: experiencesEn,
+    caseStudies: caseStudiesEn,
+    projects: projectsEn,
+    techCategories: techCategoriesEn,
   },
   es: {
     profile: profileEs,
     kpis: kpisEs,
     experiences: experiencesEs,
     caseStudies: caseStudiesEs,
-    leadershipPillars: leadershipPillarsEs,
+    projects: projectsEs,
     techCategories: techCategoriesEs,
   },
 };

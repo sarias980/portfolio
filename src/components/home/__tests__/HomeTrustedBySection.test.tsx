@@ -1,33 +1,26 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import HomeTrustedBySection from '../HomeTrustedBySection';
 import { getHomeCopy, getPortfolioContent } from '../../../content/profile';
+import { renderWithTheme } from '../../../test/renderWithTheme';
 
 describe('HomeTrustedBySection', () => {
-  it('renders trusted-by marquee logos with links', () => {
+  it('renders each company logo once for assistive technology', () => {
     const copy = getHomeCopy('en');
     const { experiences } = getPortfolioContent('en');
-    const companyBannerLogos = experiences.slice(0, 2).map((experience) => ({
-      company: experience.company,
-      website: experience.website,
-      logoUrl: experience.logoUrl,
-    }));
+    const companyBannerLogos = experiences.map(({ company, website, logo }) => ({ company, website, logo }));
 
-    render(
-      <HomeTrustedBySection
-        companyBannerLogos={companyBannerLogos}
-        copy={copy}
-        isDark={false}
-        marqueeLogos={[...companyBannerLogos, ...companyBannerLogos]}
-        softBorder="rgba(54, 79, 107, 0.2)"
-      />,
-    );
+    renderWithTheme(<HomeTrustedBySection companyBannerLogos={companyBannerLogos} copy={copy} />);
 
     expect(screen.getByText(copy.trustedBy)).toBeInTheDocument();
+    companyBannerLogos.forEach((item) => {
+      const label = copy.companyWebsiteLabel.replace('{{company}}', item.company);
+      const link = screen.getByRole('link', { name: label });
+      expect(link).toHaveAttribute('href', item.website);
 
-    companyBannerLogos.forEach((logo) => {
-      const label = copy.companyWebsiteLabel.replace('{{company}}', logo.company);
-      expect(screen.getAllByRole('link', { name: label }).length).toBeGreaterThan(0);
-      expect(screen.getAllByAltText(`${logo.company} logo`).length).toBeGreaterThan(0);
+      const image = screen.getByRole('img', { name: item.company });
+      expect(image).toHaveAttribute('loading', 'lazy');
+      expect(image).toHaveAttribute('width', String(item.logo.width));
+      expect(image).toHaveAttribute('height', String(item.logo.height));
     });
   });
 });

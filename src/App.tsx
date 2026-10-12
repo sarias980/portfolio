@@ -1,11 +1,19 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import AppNavigation from './navigations/app-navigation';
+import '@fontsource-variable/manrope';
+import '@fontsource-variable/space-grotesk';
+import './index.css';
+import type { Locale } from './content/profile';
+import AppThemeProvider from './modules/AppThemeProvider';
+import HomePage from './pages/Home';
 
-function App() {
+type AppProps = {
+  locale: Locale;
+};
+
+function App({ locale }: AppProps) {
   return (
-    <Router>
-      <AppNavigation />
-    </Router>
+    <AppThemeProvider>
+      <HomePage locale={locale} />
+    </AppThemeProvider>
   );
 }
 

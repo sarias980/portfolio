@@ -2,23 +2,52 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/assets/sarias.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#121416" />
-    <meta
-      name="description"
-      content="Sergi Arias Fernández - Senior Frontend Engineer and Frontend Technical Lead specialized in React and TypeScript."
-    />
-    <meta property="og:title" content="Sergi Arias Fernández | Frontend Technical Lead" />
-    <meta
-      property="og:description"
-      content="Portfolio focused on scalable frontend architecture, product impact and engineering leadership."
-    />
-    <meta property="og:type" content="website" />
-    <title>Sergi Arias Fernández | Frontend Technical Lead</title>
+    <meta name="theme-color" content="#F5F5F5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1622" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <script>
+      // Runs before first paint: picks the saved or system color scheme so the
+      // prerendered page never flashes the wrong theme, and enables scroll reveal
+      // only when it can work (content stays visible without JavaScript).
+      (function () {
+        var root = document.documentElement;
+        try {
+          var mode = localStorage.getItem('portfolio-color-mode') || 'system';
+          if (mode === 'system') {
+            mode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          if (mode === 'light' || mode === 'dark') root.setAttribute('data-color-mode', mode);
+        } catch (e) {}
+        if ('IntersectionObserver' in window) root.classList.add('js');
+      })();
+    </script>
+<!--app-head-->
+<!--app-styles-->
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div id="root"><!--app-html--></div>
+    <script>
+      (function () {
+        if (!document.documentElement.classList.contains('js')) return;
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              entry.target.setAttribute('data-revealed', '');
+              io.unobserve(entry.target);
+            });
+          },
+          { rootMargin: '0px 0px -60px 0px' },
+        );
+        document.querySelectorAll('[data-reveal]').forEach(function (el) {
+          io.observe(el);
+        });
+      })();
+    </script>
+    <script type="module" src="/src/entry-client.tsx"></script>
   </body>
 </html>
