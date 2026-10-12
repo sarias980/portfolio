@@ -1,47 +1,53 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Home from '../Home';
-import { getHomeCopy } from '../../content/profile';
+import { getHomeCopy, getPortfolioContent } from '../../content/profile';
+import { renderWithTheme } from '../../test/renderWithTheme';
 
 describe('Home page integration', () => {
   beforeEach(() => {
     window.localStorage.clear();
-    Object.defineProperty(window.navigator, 'language', {
-      configurable: true,
-      value: 'en-US',
-    });
+    document.documentElement.removeAttribute('data-color-mode');
   });
 
-  it('renders english content by default', () => {
+  it('renders english content with a single h1 and one h2 per section', () => {
     const copy = getHomeCopy('en');
 
-    render(<Home />);
+    renderWithTheme(<Home locale="en" />);
 
-    expect(screen.getByRole('heading', { name: copy.heroTitle })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'EN' })).toBeInTheDocument();
+    const h1 = screen.getAllByRole('heading', { level: 1 });
+    expect(h1).toHaveLength(1);
+    expect(h1[0]).toHaveTextContent(copy.heroTitle);
+    expect(h1[0]).toHaveTextContent(copy.roleChip);
+
+    const h2 = screen.getAllByRole('heading', { level: 2 }).map((heading) => heading.textContent);
+    expect(h2).toEqual([
+      copy.impactTitle,
+      copy.careerTimeline,
+      copy.projectsTitle,
+      copy.coreStack,
+      copy.contactTitle,
+    ]);
   });
 
-  it('switches locale to spanish and persists it', async () => {
-    const user = userEvent.setup();
+  it('renders spanish content from the locale prop', () => {
     const copyEs = getHomeCopy('es');
+    const { profile } = getPortfolioContent('es');
 
-    render(<Home />);
-    await user.click(screen.getByRole('button', { name: 'ES' }));
+    renderWithTheme(<Home locale="es" />);
 
-    expect(screen.getByRole('heading', { name: copyEs.heroTitle })).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(window.localStorage.getItem('portfolio-locale')).toBe('es');
-      expect(document.documentElement.lang).toBe('es');
-    });
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(copyEs.heroTitle);
+    expect(screen.getByText(profile.summary)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'ES' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: 'EN' })).toHaveAttribute('href', '/');
   });
 
   it('toggles color mode and persists it on the document', async () => {
     const user = userEvent.setup();
     const copy = getHomeCopy('en');
 
-    render(<Home />);
-    await user.click(screen.getByRole('button', { name: copy.darkModeLabel }));
+    renderWithTheme(<Home locale="en" />);
+    await user.click(screen.getByRole('button', { name: copy.colorModeLabel }));
 
     await waitFor(() => {
       expect(document.documentElement.dataset.colorMode).toBe('dark');

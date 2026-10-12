@@ -1,10 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
-
-:root {
-  --surface: #F5F5F5;
-  --text: #1f2933;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -17,13 +10,30 @@ body,
 }
 
 body {
-  background: var(--surface);
-  color: var(--text);
-  font-family: 'Manrope', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 a {
   color: inherit;
+}
+
+/*
+ * Scroll reveal. Content is visible by default (no JS, crawlers, reduced motion).
+ * The inline script in index.html adds `.js` only when it can reveal elements,
+ * so nothing stays hidden if JavaScript fails.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 480ms ease,
+      transform 480ms ease;
+  }
+
+  .js [data-reveal][data-revealed] {
+    opacity: 1;
+    transform: none;
+  }
 }

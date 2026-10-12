@@ -1,36 +1,20 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import HomeImpactSection from '../HomeImpactSection';
 import { getHomeCopy, getPortfolioContent } from '../../../content/profile';
-import { getCardBase } from '../../../pages/home/home.constants';
+import { renderWithTheme } from '../../../test/renderWithTheme';
 
 describe('HomeImpactSection', () => {
-  it('renders impact cards, timeline and stack matrix', () => {
+  it('renders the section heading and every case study', () => {
     const copy = getHomeCopy('en');
-    const { caseStudies, experiences, leadershipPillars, techCategories } = getPortfolioContent('en');
+    const { caseStudies } = getPortfolioContent('en');
 
-    render(
-      <HomeImpactSection
-        cardBase={getCardBase(false)}
-        caseStudies={caseStudies}
-        copy={copy}
-        experiences={experiences}
-        isDark={false}
-        leadershipPillars={leadershipPillars}
-        softBorder="rgba(54, 79, 107, 0.2)"
-        techCategories={techCategories}
-      />,
-    );
+    renderWithTheme(<HomeImpactSection caseStudies={caseStudies} copy={copy} />);
 
-    expect(screen.getByText(copy.impactTitle)).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: caseStudies[0].title })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: caseStudies[2].title })).toBeInTheDocument();
-    expect(screen.getByText(copy.careerTimeline)).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: copy.leadershipApproachTitle })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: leadershipPillars[0].title })).toBeInTheDocument();
-    expect(screen.getAllByText(experiences[0].company).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(copy.currentTag).length).toBeGreaterThan(0);
-    expect(screen.getByText(copy.coreStack)).toBeInTheDocument();
-    expect(screen.getByText(techCategories[0].title)).toBeInTheDocument();
-    expect(screen.getAllByText(techCategories[0].items[0]).length).toBeGreaterThan(0);
+    expect(screen.getByRole('heading', { level: 2, name: copy.impactTitle })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: copy.impactTitle })).toHaveAttribute('id', 'impact');
+    caseStudies.forEach((caseStudy) => {
+      expect(screen.getByRole('heading', { level: 3, name: caseStudy.title })).toBeInTheDocument();
+      expect(screen.getByText(caseStudy.summary)).toBeInTheDocument();
+    });
   });
 });
