@@ -1,0 +1,39 @@
+# Deploys sarias.dev to Firebase Hosting on every push to master.
+# Requires the FIREBASE_SERVICE_ACCOUNT_SARIAS_66260 repository secret
+# (created by `firebase init hosting:github`).
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches: [master]
+
+concurrency:
+  group: firebase-hosting-live
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # Unit tests plus the build test, which checks the prerendered HTML.
+      - run: npm test
+
+      # firebase.json's predeploy hook runs `npm run build` before uploading.
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SARIAS_66260 }}
+          projectId: sarias-66260
+          channelId: live
