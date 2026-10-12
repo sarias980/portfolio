@@ -53,7 +53,7 @@ export default function HomeHeroSection({
   return (
     <Container maxWidth="lg" sx={{ position: 'relative', pb: { xs: 8, md: 12 } }}>
       <Grid container spacing={{ xs: 5, md: 6 }} alignItems="flex-end">
-        <Grid size={{ xs: 12, md: 8 }} sx={rise()}>
+        <Grid size={{ xs: 12, md: 7, lg: 8 }} sx={rise()}>
           <Typography variant="h1" sx={{ maxWidth: 900 }}>
             <Box component="span" sx={{ display: 'block' }}>
               {copy.heroTitle}
@@ -145,7 +145,7 @@ export default function HomeHeroSection({
           </Stack>
         </Grid>
 
-        <Grid size={{ xs: 12, md: 4 }} sx={rise(120)}>
+        <Grid size={{ xs: 12, md: 5, lg: 4 }} sx={rise(120)}>
           <Box
             component="dl"
             sx={(theme) => ({
@@ -153,18 +153,10 @@ export default function HomeHeroSection({
               m: 0,
               p: { xs: 2.5, md: 3 },
               borderRadius: '20px',
-              overflow: 'hidden',
               bgcolor: 'surface.panel',
               backdropFilter: 'blur(10px)',
               border: `1px solid ${(theme.vars || theme).palette.surface.cardBorder}`,
               boxShadow: (theme.vars || theme).palette.surface.cardShadow,
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                inset: '0 0 auto 0',
-                height: 3,
-                background: brandGradient,
-              },
             })}
           >
             <Box component="dt" sx={labelSx}>
@@ -175,7 +167,10 @@ export default function HomeHeroSection({
                 {activeRole.role}
               </Typography>
               <Typography sx={{ mt: 0.5, fontWeight: 600, color: 'text.secondary' }}>
-                {activeRole.company} · {activeRole.period}
+                {activeRole.company} ·{' '}
+                <Box component="span" sx={{ whiteSpace: 'nowrap' }}>
+                  {activeRole.period}
+                </Box>
               </Typography>
             </Box>
 
@@ -206,16 +201,17 @@ export default function HomeHeroSection({
                 {featuredProject.name}
                 <ArrowOutwardRoundedIcon aria-hidden fontSize="small" />
               </Link>
-              <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 0.75 }}>
+              <Stack direction="row" spacing={1} alignItems="baseline" sx={{ mt: 1 }}>
                 <Box
                   component="span"
                   aria-hidden
                   sx={{
                     position: 'relative',
-                    width: 8,
-                    height: 8,
+                    top: '-1px',
+                    width: 7,
+                    height: 7,
                     borderRadius: '50%',
-                    bgcolor: '#22c55e',
+                    bgcolor: 'secondary.main',
                     flexShrink: 0,
                     '@media (prefers-reduced-motion: no-preference)': {
                       '&::after': {
@@ -223,16 +219,22 @@ export default function HomeHeroSection({
                         position: 'absolute',
                         inset: 0,
                         borderRadius: '50%',
-                        bgcolor: '#22c55e',
+                        bgcolor: 'secondary.main',
                         animation: 'live-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite',
                       },
                       '@keyframes live-ping': {
-                        '75%, 100%': { transform: 'scale(2.6)', opacity: 0 },
+                        '0%': { transform: 'scale(1)', opacity: 0.5 },
+                        '70%, 100%': { transform: 'scale(2.4)', opacity: 0 },
                       },
                     },
                   }}
                 />
-                <Typography sx={{ fontWeight: 600, color: 'text.secondary' }}>{copy.liveOnStores}</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ fontWeight: 600, color: 'text.secondary', lineHeight: 1.5 }}
+                >
+                  {copy.liveOnStores}
+                </Typography>
               </Stack>
             </Box>
           </Box>
