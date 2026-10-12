@@ -10,7 +10,7 @@ Source for [sarias.dev](https://sarias.dev). React 19, TypeScript, Vite and MUI,
 - `npm test`: unit tests plus a build test that checks the prerendered HTML.
 - `npm run typecheck`: TypeScript without emitting.
 - `npm run assets`: regenerate favicons, manifest icons, Open Graph images and WebP logos (`scripts/generate-assets.mjs`).
-- `npm run deploy`: build (Firebase `predeploy` hook) and deploy `dist` to Firebase Hosting.
+- `npm run deploy`: manual deploy; builds through Firebase's `predeploy` hook and publishes `dist` to Firebase Hosting.
 
 ## How the build works
 
@@ -30,3 +30,10 @@ The browser hydrates the prerendered markup. The locale comes from the URL, neve
 ## Deployment
 
 `firebase.json` serves `dist` with clean URLs and trailing slashes (`/es` redirects to `/es/`), a real 404 page and long-lived caching for hashed assets.
+
+GitHub Actions deploys automatically:
+
+- Every push to `master` runs `npm test` and deploys to the live site (`.github/workflows/firebase-hosting-merge.yml`).
+- Every pull request gets a preview channel, valid for 7 days, whose URL is commented on the PR (`.github/workflows/firebase-hosting-pull-request.yml`).
+
+Both workflows need the `FIREBASE_SERVICE_ACCOUNT_SARIAS_66260` repository secret. Create it with `firebase init hosting:github`, and answer **No** when it asks to overwrite the existing workflow files.
