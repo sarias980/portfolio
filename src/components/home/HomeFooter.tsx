@@ -3,6 +3,9 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import type { HomeCopy, Profile } from '../../content/profile';
+import BrandMark from '../common/BrandMark';
+
+const footerLink = { display: 'inline-flex', alignItems: 'center', minHeight: 44, fontWeight: 600 } as const;
 
 type HomeFooterProps = {
   copy: HomeCopy;
@@ -17,16 +20,33 @@ export default function HomeFooter({ copy, profile }: HomeFooterProps) {
         spacing={1.5}
         justifyContent="space-between"
         alignItems={{ xs: 'flex-start', sm: 'center' }}
-        sx={{ pt: 3, borderTop: 1, borderColor: 'divider', color: 'text.secondary' }}
+        sx={{ pt: 3, borderTop: 1, borderColor: 'surface.rule', color: 'text.secondary' }}
       >
-        <Typography variant="body2">
-          {profile.fullName} · {copy.footerNote}
-        </Typography>
+        <Stack direction="row" spacing={1.5} alignItems="center">
+          <BrandMark size={22} sx={{ color: 'text.primary' }} />
+          <Typography variant="body2">
+            {profile.fullName} · {copy.footerNote}
+          </Typography>
+        </Stack>
         <Stack direction="row" spacing={2.5}>
-          <Link href={profile.github} target="_blank" rel="noopener" color="inherit" variant="body2">
+          <Link
+            href={profile.github}
+            target="_blank"
+            rel="noopener"
+            color="inherit"
+            variant="body2"
+            sx={footerLink}
+          >
             GitHub
           </Link>
-          <Link href={profile.linkedin} target="_blank" rel="noopener" color="inherit" variant="body2">
+          <Link
+            href={profile.linkedin}
+            target="_blank"
+            rel="noopener"
+            color="inherit"
+            variant="body2"
+            sx={footerLink}
+          >
             LinkedIn
           </Link>
         </Stack>

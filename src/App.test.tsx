@@ -6,7 +6,7 @@ describe('App', () => {
   it.each(['en', 'es'] as const)('renders the %s home page', (locale) => {
     render(<App locale={locale} />);
 
-    expect(screen.getAllByText('Sergi Arias Fernández').length).toBeGreaterThan(0);
+    expect(screen.getByRole('link', { name: 'Sergi Arias Fernández' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(getHomeCopy(locale).heroTitle);
   });
 });

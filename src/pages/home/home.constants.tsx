@@ -5,6 +5,7 @@ import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded';
 import StorageRoundedIcon from '@mui/icons-material/StorageRounded';
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import type { Theme } from '@mui/material/styles';
+import { easeOutExpo } from '../../modules/theme';
 import TheaterComedyRoundedIcon from '@mui/icons-material/TheaterComedyRounded';
 import {
   siAngular,
@@ -35,14 +36,14 @@ import {
 import BrandIcon from '../../components/common/BrandIcon';
 import type { HomeCopy, TechCategoryId } from '../../content/profile';
 
-export type HomeSectionId = 'home' | 'impact' | 'projects' | 'stack' | 'contact';
+export type HomeSectionId = 'impact' | 'experience' | 'projects' | 'stack' | 'contact';
 
 export type HomeSection = {
   id: HomeSectionId;
   label: string;
 };
 
-const sectionIds: HomeSectionId[] = ['home', 'impact', 'projects', 'stack', 'contact'];
+export const sectionIds: HomeSectionId[] = ['impact', 'experience', 'projects', 'stack', 'contact'];
 
 export const getHomeSections = (copy: HomeCopy): HomeSection[] =>
   sectionIds.map((id) => ({ id, label: copy.sections[id] }));
@@ -51,7 +52,7 @@ export const cardBase = (theme: Theme) =>
   ({
     border: `1px solid ${(theme.vars || theme).palette.surface.cardBorder}`,
     boxShadow: (theme.vars || theme).palette.surface.cardShadow,
-    transition: 'transform 200ms ease, box-shadow 200ms ease',
+    transition: `transform 400ms ${easeOutExpo}, box-shadow 400ms ${easeOutExpo}, border-color 400ms ${easeOutExpo}`,
     '@media (hover: hover) and (prefers-reduced-motion: no-preference)': {
       '&:hover': {
         transform: 'translateY(-4px)',

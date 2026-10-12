@@ -79,8 +79,8 @@ export type HomeCopy = {
   ogImageAlt: string;
   skipToContent: string;
   sections: {
-    home: string;
     impact: string;
+    experience: string;
     projects: string;
     stack: string;
     contact: string;
@@ -93,18 +93,17 @@ export type HomeCopy = {
   projectsButton: string;
   linkedinButton: string;
   currentRole: string;
+  ownProduct: string;
+  liveOnStores: string;
+  factsLabel: string;
   trustedBy: string;
-  impactOverline: string;
   impactTitle: string;
   impactSummary: string;
-  journeyLog: string;
   careerTimeline: string;
   careerTimelineSummary: string;
   currentTag: string;
-  projectsOverline: string;
   projectsTitle: string;
   projectsSummary: string;
-  stackMatrix: string;
   coreStack: string;
   coreStackSummary: string;
   contactTitle: string;
@@ -446,8 +445,8 @@ const homeCopy: Record<Locale, HomeCopy> = {
     ogImageAlt: 'Sergi Arias Fernández, Senior Full-Stack Engineer',
     skipToContent: 'Skip to content',
     sections: {
-      home: 'Home',
       impact: 'Impact',
+      experience: 'Experience',
       projects: 'Projects',
       stack: 'Stack',
       contact: 'Contact',
@@ -460,19 +459,18 @@ const homeCopy: Record<Locale, HomeCopy> = {
     projectsButton: 'See projects',
     linkedinButton: 'LinkedIn',
     currentRole: 'Current role',
+    ownProduct: 'Own product',
+    liveOnStores: 'Live on the App Store and Google Play',
+    factsLabel: 'Key facts',
     trustedBy: 'Trusted by',
-    impactOverline: 'Current role',
     impactTitle: 'Impact at Deepdots',
     impactSummary: 'Frontend technical lead for a data-driven React and TypeScript product, from day 0.',
-    journeyLog: 'Journey log',
-    careerTimeline: 'Career timeline',
+    careerTimeline: 'Experience',
     careerTimelineSummary: 'From multi-platform apps to technical leadership and full-stack products.',
     currentTag: 'Current',
-    projectsOverline: 'Own and client work',
     projectsTitle: 'Projects',
     projectsSummary:
       'Web and mobile products built end to end with React, React Native and TypeScript, from the database to the stores.',
-    stackMatrix: 'Stack matrix',
     coreStack: 'Core stack',
     coreStackSummary: 'Technologies I use in production, from the interface to the infrastructure.',
     contactTitle: 'Get in touch',
@@ -490,8 +488,8 @@ const homeCopy: Record<Locale, HomeCopy> = {
     ogImageAlt: 'Sergi Arias Fernández, Ingeniero Full-Stack Senior',
     skipToContent: 'Saltar al contenido',
     sections: {
-      home: 'Inicio',
       impact: 'Impacto',
+      experience: 'Trayectoria',
       projects: 'Proyectos',
       stack: 'Stack',
       contact: 'Contacto',
@@ -504,20 +502,19 @@ const homeCopy: Record<Locale, HomeCopy> = {
     projectsButton: 'Ver proyectos',
     linkedinButton: 'LinkedIn',
     currentRole: 'Rol actual',
+    ownProduct: 'Producto propio',
+    liveOnStores: 'Publicada en App Store y Google Play',
+    factsLabel: 'Datos clave',
     trustedBy: 'Han confiado en mí',
-    impactOverline: 'Rol actual',
     impactTitle: 'Impacto en Deepdots',
     impactSummary:
       'Líder técnico frontend de un producto data-driven con React y TypeScript, desde el día 0.',
-    journeyLog: 'Recorrido profesional',
     careerTimeline: 'Trayectoria',
     careerTimelineSummary: 'De las apps multiplataforma al liderazgo técnico y los productos full-stack.',
     currentTag: 'Actual',
-    projectsOverline: 'Proyectos propios y de clientes',
     projectsTitle: 'Proyectos',
     projectsSummary:
       'Productos web y móviles construidos de principio a fin con React, React Native y TypeScript, de la base de datos a las stores.',
-    stackMatrix: 'Matriz tecnológica',
     coreStack: 'Stack principal',
     coreStackSummary: 'Tecnologías que uso en producción, de la interfaz a la infraestructura.',
     contactTitle: 'Contacto',

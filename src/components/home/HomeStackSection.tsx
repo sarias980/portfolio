@@ -3,7 +3,6 @@ import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import type { HomeCopy, TechCategory } from '../../content/profile';
 import { techCategoryAccentMap, techCategoryIconMap, techIconMap } from '../../pages/home/home.constants';
 import Reveal from '../common/Reveal';
@@ -21,21 +20,14 @@ export default function HomeStackSection({ copy, techCategories }: HomeStackSect
       id="stack"
       aria-labelledby="stack-title"
       maxWidth="lg"
-      sx={{ pb: { xs: 7.8, md: 9.8 }, scrollMarginTop: 98 }}
+      sx={{ py: { xs: 8, md: 12 }, scrollMarginTop: 88 }}
     >
-      <SectionHeading
-        id="stack-title"
-        icon={<CodeRoundedIcon />}
-        overline={copy.stackMatrix}
-        title={copy.coreStack}
-        summary={copy.coreStackSummary}
-      />
+      <SectionHeading id="stack-title" title={copy.coreStack} summary={copy.coreStackSummary} />
 
       <Reveal>
-        <Box component="dl" sx={{ m: 0, mt: 1.4 }}>
-          {techCategories.map((category, index) => {
+        <Box component="dl" sx={{ m: 0, borderTop: 1, borderColor: 'surface.rule' }}>
+          {techCategories.map((category) => {
             const accent = techCategoryAccentMap[category.id];
-            const isLast = index === techCategories.length - 1;
 
             return (
               <Stack
@@ -43,12 +35,11 @@ export default function HomeStackSection({ copy, techCategories }: HomeStackSect
                 direction={{ xs: 'column', md: 'row' }}
                 spacing={{ xs: 1, md: 1.5 }}
                 alignItems={{ xs: 'flex-start', md: 'center' }}
-                sx={(theme) => ({
-                  py: { xs: 1.35, md: 1.7 },
-                  borderBottom: isLast
-                    ? 'none'
-                    : `1px dashed ${(theme.vars || theme).palette.surface.softBorder}`,
-                })}
+                sx={{
+                  py: { xs: 2.25, md: 2.75 },
+                  borderBottom: 1,
+                  borderColor: 'surface.rule',
+                }}
               >
                 <Stack
                   component="dt"

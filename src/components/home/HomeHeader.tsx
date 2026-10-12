@@ -10,8 +10,11 @@ import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import { useColorScheme } from '@mui/material/styles';
 import type { HomeCopy, Locale } from '../../content/profile';
+import { brandGradient, easeOutExpo } from '../../modules/theme';
 import type { HomeSection } from '../../pages/home/home.constants';
 import { localePaths } from '../../seo/site';
+import BrandMark from '../common/BrandMark';
+import useActiveSection from '../common/useActiveSection';
 
 type HomeHeaderProps = {
   copy: HomeCopy;
@@ -31,6 +34,10 @@ export default function HomeHeader({ copy, locale, profileName, sections }: Home
   // first client render match. Icons switch through CSS instead of state.
   const resolvedMode = mode === 'system' ? systemMode : mode;
   const isDark = resolvedMode === 'dark';
+  const activeSection = useActiveSection(sections.map((section) => section.id));
+  const nameParts = profileName.split(' ');
+  const lastName = nameParts.pop();
+  const firstNames = nameParts.join(' ');
 
   return (
     <AppBar
@@ -40,48 +47,102 @@ export default function HomeHeader({ copy, locale, profileName, sections }: Home
       sx={{
         bgcolor: 'surface.headerBg',
         backgroundImage: 'none',
-        backdropFilter: 'blur(12px)',
+        backdropFilter: 'saturate(1.4) blur(14px)',
         borderBottom: 1,
-        borderColor: 'divider',
+        borderColor: 'surface.rule',
         color: 'text.primary',
       }}
     >
       <Container maxWidth="lg">
-        <Toolbar disableGutters sx={{ justifyContent: 'space-between', minHeight: 72, gap: 1 }}>
-          <Typography
+        <Toolbar
+          disableGutters
+          sx={{ justifyContent: 'space-between', minHeight: { xs: 64, md: 72 }, gap: 1 }}
+        >
+          <Box
             component="a"
             href={localePaths[locale]}
             sx={{
-              fontFamily: "'Space Grotesk Variable', 'Space Grotesk', sans-serif",
-              fontWeight: 700,
-              fontSize: { xs: '1.05rem', sm: '1.25rem' },
-              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 1.25,
+              minHeight: 44,
               color: 'inherit',
+              textDecoration: 'none',
             }}
           >
-            {profileName}
-          </Typography>
+            <BrandMark size={26} />
+            <Typography
+              component="span"
+              sx={{
+                fontFamily: "'Space Grotesk Variable', 'Space Grotesk', sans-serif",
+                fontWeight: 700,
+                fontSize: { xs: '1rem', sm: '1.15rem' },
+                letterSpacing: '-0.01em',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {firstNames}
+              {/* The second surname is dropped on narrow phones to keep the bar on one line. */}
+              <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>
+                {' '}
+                {lastName}
+              </Box>
+            </Typography>
+          </Box>
           <Stack direction="row" spacing={1.1} alignItems="center">
             <Box
               component="nav"
               aria-label={copy.mainNavLabel}
-              sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}
+              sx={{ display: { xs: 'none', md: 'flex' }, gap: 0.5, mr: 1 }}
             >
-              {sections.map((section) => (
-                <Button key={section.id} href={`#${section.id}`} size="small" color="inherit">
-                  {section.label}
-                </Button>
-              ))}
+              {sections.map((section) => {
+                const isActive = activeSection === section.id;
+
+                return (
+                  <Button
+                    key={section.id}
+                    href={`#${section.id}`}
+                    size="small"
+                    color="inherit"
+                    aria-current={isActive ? 'location' : undefined}
+                    sx={{
+                      position: 'relative',
+                      px: 1.5,
+                      color: isActive ? 'text.primary' : 'text.secondary',
+                      '&:hover': { bgcolor: 'transparent', color: 'text.primary' },
+                      '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        left: 14,
+                        right: 14,
+                        bottom: 4,
+                        height: 2,
+                        borderRadius: 2,
+                        background: brandGradient,
+                        transform: isActive ? 'scaleX(1)' : 'scaleX(0)',
+                        transformOrigin: 'left',
+                        transition: `transform 500ms ${easeOutExpo}`,
+                      },
+                      '&:hover::after': { transform: 'scaleX(1)' },
+                    }}
+                  >
+                    {section.label}
+                  </Button>
+                );
+              })}
             </Box>
             <IconButton
-              size="small"
               onClick={() => setMode(isDark ? 'light' : 'dark')}
               aria-label={copy.colorModeLabel}
               aria-pressed={resolvedMode ? isDark : undefined}
               title={copy.colorModeLabel}
               sx={(theme) => ({
+                width: 44,
+                height: 44,
                 border: `1px solid ${(theme.vars || theme).palette.surface.softBorder}`,
                 bgcolor: 'surface.softPanel',
+                transition: `transform 400ms ${easeOutExpo}`,
+                '&:hover': { transform: 'rotate(-18deg)' },
                 '& .icon-light': { display: 'none' },
                 ...theme.applyStyles('dark', {
                   '& .icon-light': { display: 'inline-block' },
@@ -118,8 +179,7 @@ export default function HomeHeader({ copy, locale, profileName, sections }: Home
                     aria-current={isCurrent ? 'page' : undefined}
                     variant={isCurrent ? 'contained' : 'text'}
                     color={isCurrent ? 'primary' : 'inherit'}
-                    disableElevation
-                    sx={{ minWidth: 40, px: 1.2, fontWeight: 700 }}
+                    sx={{ minWidth: 44, minHeight: 36, px: 1.2, fontWeight: 700 }}
                   >
                     {option.label}
                   </Button>

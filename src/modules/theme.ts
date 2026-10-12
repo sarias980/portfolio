@@ -24,7 +24,15 @@ type SurfacePalette = {
   timelineCard: string;
   timelineLine: string;
   accentText: string;
+  rule: string;
+  panel: string;
+  dotGrid: string;
+  logoFilter: string;
 };
+
+// The teal-to-pink bar under the S mark: the brand's signature device.
+export const brandGradient = 'linear-gradient(90deg, #3FC1C9 0%, #FC5185 100%)';
+export const easeOutExpo = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
 export const colorModeStorageKey = 'portfolio-color-mode';
 export const colorSchemeAttribute = 'data-color-mode';
@@ -83,6 +91,10 @@ export const theme = createTheme({
           timelineLine:
             'linear-gradient(180deg, rgba(63, 193, 201, 0.18), rgba(54, 79, 107, 0.55), rgba(252, 81, 133, 0.28))',
           accentText: '#1a6f74',
+          rule: 'rgba(54, 79, 107, 0.16)',
+          panel: 'rgba(255, 255, 255, 0.82)',
+          dotGrid: 'rgba(54, 79, 107, 0.16)',
+          logoFilter: 'grayscale(1) contrast(1.1)',
         },
       },
     },
@@ -135,6 +147,10 @@ export const theme = createTheme({
           timelineLine:
             'linear-gradient(180deg, rgba(63, 193, 201, 0.3), rgba(95, 126, 162, 0.58), rgba(252, 81, 133, 0.36))',
           accentText: '#69d8de',
+          rule: 'rgba(158, 176, 192, 0.18)',
+          panel: 'rgba(24, 34, 50, 0.78)',
+          dotGrid: 'rgba(158, 176, 192, 0.14)',
+          logoFilter: 'grayscale(1) invert(1) brightness(1.4)',
         },
       },
     },
@@ -147,20 +163,23 @@ export const theme = createTheme({
     h1: {
       fontFamily: "'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif",
       fontWeight: 700,
-      lineHeight: 1.03,
-      fontSize: 'clamp(2.1rem, 6.3vw, 4rem)',
+      lineHeight: 1,
+      letterSpacing: '-0.035em',
+      fontSize: 'clamp(2.6rem, 7.4vw, 5.6rem)',
     },
     h2: {
       fontFamily: "'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif",
       fontWeight: 700,
-      lineHeight: 1.1,
-      fontSize: 'clamp(1.8rem, 4vw, 2.9rem)',
+      lineHeight: 1.05,
+      letterSpacing: '-0.025em',
+      fontSize: 'clamp(2rem, 4.6vw, 3.4rem)',
     },
     h3: {
       fontFamily: "'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif",
       fontWeight: 600,
-      lineHeight: 1.2,
-      fontSize: 'clamp(1.3rem, 3vw, 1.9rem)',
+      lineHeight: 1.15,
+      letterSpacing: '-0.015em',
+      fontSize: 'clamp(1.3rem, 2.4vw, 1.75rem)',
     },
     h5: {
       lineHeight: 1.45,
@@ -188,10 +207,33 @@ export const theme = createTheme({
       },
     },
     MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
       styleOverrides: {
         root: {
           borderRadius: 999,
           paddingInline: '1.15rem',
+          minHeight: 44,
+          transition: 'background-color 200ms, border-color 200ms, color 200ms, transform 200ms',
+          '&:active': { transform: 'scale(0.97)' },
+        },
+        sizeSmall: {
+          minHeight: 36,
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          fontWeight: 600,
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textUnderlineOffset: '0.2em',
         },
       },
     },

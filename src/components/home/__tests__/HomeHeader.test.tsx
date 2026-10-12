@@ -12,9 +12,15 @@ describe('HomeHeader', () => {
       <HomeHeader copy={copy} locale="en" profileName="Sergi Arias" sections={getHomeSections(copy)} />,
     );
 
-    expect(screen.getByText('Sergi Arias')).toBeInTheDocument();
-    ['Home', 'Impact', 'Projects', 'Stack', 'Contact'].forEach((label) => {
-      expect(screen.getByRole('link', { name: label })).toHaveAttribute('href', `#${label.toLowerCase()}`);
+    expect(screen.getByRole('link', { name: 'Sergi Arias' })).toHaveAttribute('href', '/');
+    [
+      ['Impact', '#impact'],
+      ['Experience', '#experience'],
+      ['Projects', '#projects'],
+      ['Stack', '#stack'],
+      ['Contact', '#contact'],
+    ].forEach(([label, href]) => {
+      expect(screen.getByRole('link', { name: label })).toHaveAttribute('href', href);
     });
   });
 

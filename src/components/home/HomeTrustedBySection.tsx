@@ -33,7 +33,7 @@ export default function HomeTrustedBySection({ companyBannerLogos, copy }: HomeT
       <Reveal>
         <Box
           sx={(theme) => ({
-            borderRadius: 2.5,
+            borderRadius: { xs: '20px', md: '999px' },
             border: `1px solid ${(theme.vars || theme).palette.surface.softBorder}`,
             bgcolor: 'surface.trustedBg',
             px: { xs: 1.4, md: 2.2 },
@@ -106,9 +106,10 @@ export default function HomeTrustedBySection({ companyBannerLogos, copy }: HomeT
                           sx={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            opacity: 0.85,
-                            transition: 'opacity 180ms ease',
-                            '&:hover': { opacity: 1 },
+                            opacity: 0.7,
+                            filter: 'var(--mui-palette-surface-logoFilter)',
+                            transition: 'opacity 300ms ease, filter 300ms ease',
+                            '&:hover, &:focus-visible': { opacity: 1, filter: 'none' },
                           }}
                         >
                           <LogoImage

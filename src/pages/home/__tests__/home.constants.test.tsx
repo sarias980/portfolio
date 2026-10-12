@@ -12,11 +12,11 @@ describe('home.constants helpers', () => {
     const enSections = getHomeSections(getHomeCopy('en'));
     const esSections = getHomeSections(getHomeCopy('es'));
 
-    expect(enSections[0]).toEqual({ id: 'home', label: 'Home' });
-    expect(esSections[0]).toEqual({ id: 'home', label: 'Inicio' });
+    expect(enSections[1]).toEqual({ id: 'experience', label: 'Experience' });
+    expect(esSections[1]).toEqual({ id: 'experience', label: 'Trayectoria' });
     expect(esSections.map((section) => section.id)).toEqual([
-      'home',
       'impact',
+      'experience',
       'projects',
       'stack',
       'contact',
