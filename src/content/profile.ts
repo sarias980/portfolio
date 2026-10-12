@@ -163,7 +163,6 @@ const profileEs: Profile = {
 const kpisEn: KPI[] = [
   { label: 'Years of experience', value: '10+' },
   { label: 'Projects delivered', value: '20+' },
-  // Pending confirmation from Sergi: replaces the old "Continents impacted" KPI.
   { label: 'From infrastructure to app', value: 'Full-stack' },
 ];
 
