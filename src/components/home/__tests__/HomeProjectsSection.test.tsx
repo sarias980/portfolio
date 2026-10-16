@@ -54,6 +54,6 @@ describe('HomeProjectsSection', () => {
 
     expect(screen.getByText('En desarrollo')).toBeInTheDocument();
     expect(screen.getByText('Ingeniero del equipo fundador · 2021 – 2022')).toBeInTheDocument();
-    expect(screen.getByText('CTO y único ingeniero')).toBeInTheDocument();
+    expect(screen.getByText('Ingeniero del equipo fundador')).toBeInTheDocument();
   });
 });

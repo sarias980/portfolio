@@ -300,7 +300,7 @@ const touryTellerLinks = (websiteLabel: string): ProjectLink[] => [
 const projectsEn: Project[] = [
   {
     name: 'TouryTeller',
-    role: 'CTO and sole engineer',
+    role: 'Founding engineer',
     summary:
       'Gamified city tour app live on the App Store and Google Play. Users explore the city through challenges, geolocated checkpoints and points-and-levels progression; local creators publish and sell their tours from their own dashboard, with Stripe Connect payouts. I built the whole product: infrastructure, API, mobile app, admin panel, a self-hosted machine translation service and the design.',
     stack: [
@@ -353,7 +353,7 @@ const projectsEn: Project[] = [
 const projectsEs: Project[] = [
   {
     ...projectsEn[0],
-    role: 'CTO y único ingeniero',
+    role: 'Ingeniero del equipo fundador',
     summary:
       'App de rutas urbanas gamificadas publicada en App Store y Google Play. Los usuarios recorren la ciudad con retos, checkpoints geolocalizados y progresión por puntos y niveles; los creadores locales publican y venden sus rutas desde un panel propio, con cobros por Stripe Connect. Construí el producto entero: infraestructura, API, app móvil, panel de administración, un servicio propio de traducción automática y el diseño.',
   },
