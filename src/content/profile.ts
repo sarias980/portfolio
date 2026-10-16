@@ -327,7 +327,7 @@ const projectsEn: Project[] = [
   {
     name: 'lidiamourelo.com',
     summary:
-      'Bilingual website for a psychology practice, with a technical and SEO audit. I traced five SEO issues (broken canonicals, duplicate hreflang, identical meta descriptions…) to a single root cause, head tags duplicated during prerendering, and fixed it in production.',
+      'Spanish and Catalan website for an online psychology practice, with a technical and SEO audit. I traced five SEO issues (broken canonicals, duplicate hreflang, identical meta descriptions…) to a single root cause, head tags duplicated during prerendering, and fixed it in production.',
     stack: ['React', 'Vite', 'Prerendering', 'Firebase Hosting'],
     links: [{ kind: 'website', label: 'lidiamourelo.com', href: 'https://lidiamourelo.com' }],
   },
@@ -365,7 +365,7 @@ const projectsEs: Project[] = [
   {
     ...projectsEn[2],
     summary:
-      'Web en español e inglés de una consulta de psicología, con auditoría técnica y SEO. Detecté que cinco errores de SEO (canonicals rotos, hreflang duplicado, meta descriptions idénticas…) tenían una sola causa, etiquetas del head duplicadas al prerenderizar, y lo corregí en producción.',
+      'Web en español y catalán de una consulta de psicología online, con auditoría técnica y SEO. Detecté que cinco errores de SEO (canonicals rotos, hreflang duplicado, meta descriptions idénticas…) tenían una sola causa, etiquetas del head duplicadas al prerenderizar, y lo corregí en producción.',
     stack: ['React', 'Vite', 'Prerenderizado', 'Firebase Hosting'],
   },
   {
