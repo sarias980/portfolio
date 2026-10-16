@@ -123,7 +123,6 @@ const toIco = (pngs) => {
 const png = (svg, size) => sharp(Buffer.from(svg)).resize(size, size).png({ compressionLevel: 9 }).toBuffer();
 
 const logos = [
-  { source: 'deepdots-clean.png', name: 'deepdots' },
   { source: 'coachendo-clean.png', name: 'coachendo' },
   { source: 'uve-solutions-clean.png', name: 'uve-solutions' },
   { source: 'alten-clean.png', name: 'alten' },
