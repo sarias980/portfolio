@@ -126,7 +126,7 @@ const github = 'https://github.com/sarias980';
 const email = 'info@sarias.dev';
 
 const logos = {
-  deepdots: { src: '/logos/deepdots.webp', width: 542, height: 104 },
+  deepdots: { src: '/logos/deepdots.svg', width: 805, height: 160 },
   coachendo: { src: '/logos/coachendo.webp', width: 100, height: 100 },
   uve: { src: '/logos/uve-solutions.webp', width: 274, height: 93 },
   alten: { src: '/logos/alten.webp', width: 64, height: 104 },
