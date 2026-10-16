@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import LaunchRoundedIcon from '@mui/icons-material/LaunchRounded';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import type { HomeCopy, Locale, Profile } from '../../content/profile';
 import { brandGradient, easeOutExpo } from '../../modules/theme';
 import BrandMark from '../common/BrandMark';
@@ -104,8 +105,9 @@ export default function HomeContactSection({ copy, locale, profile }: HomeContac
               <Button
                 variant="outlined"
                 size="large"
+                startIcon={<LinkedInIcon />}
                 endIcon={<LaunchRoundedIcon />}
-                sx={lightButton}
+                sx={[lightButton, { '& .MuiButton-endIcon > svg': { fontSize: 18 } }]}
                 href={profile.linkedin}
                 target="_blank"
                 rel="noopener"

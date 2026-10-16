@@ -38,9 +38,9 @@ describe('HomeProjectsSection', () => {
     const links = within(card).getAllByRole('link');
 
     expect(links.map((link) => link.getAttribute('href'))).toEqual([
-      'https://touryteller.com',
       'https://apps.apple.com/es/app/touryteller/id6761470076',
       'https://play.google.com/store/apps/details?id=com.touryteller',
+      'https://touryteller.com',
     ]);
     links.forEach((link) => {
       expect(link).toHaveAttribute('rel', 'noopener');

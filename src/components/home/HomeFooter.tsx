@@ -2,10 +2,12 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import type { HomeCopy, Profile } from '../../content/profile';
 import BrandMark from '../common/BrandMark';
 
-const footerLink = { display: 'inline-flex', alignItems: 'center', minHeight: 44, fontWeight: 600 } as const;
+const footerLink = { display: 'inline-flex', alignItems: 'center', gap: 0.75, minHeight: 44, fontWeight: 600 } as const;
 
 type HomeFooterProps = {
   copy: HomeCopy;
@@ -37,6 +39,7 @@ export default function HomeFooter({ copy, profile }: HomeFooterProps) {
             variant="body2"
             sx={footerLink}
           >
+            <GitHubIcon fontSize="small" />
             GitHub
           </Link>
           <Link
@@ -47,6 +50,7 @@ export default function HomeFooter({ copy, profile }: HomeFooterProps) {
             variant="body2"
             sx={footerLink}
           >
+            <LinkedInIcon fontSize="small" />
             LinkedIn
           </Link>
         </Stack>

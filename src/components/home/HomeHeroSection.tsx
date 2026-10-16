@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import LaunchRoundedIcon from '@mui/icons-material/LaunchRounded';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import PlaceRoundedIcon from '@mui/icons-material/PlaceRounded';
 import type { HomeCopy, KPI, Profile } from '../../content/profile';
 import { brandGradient, easeOutExpo } from '../../modules/theme';
@@ -180,11 +181,12 @@ export default function HomeHeroSection({ copy, kpis, profile }: HomeHeroSection
               variant="outlined"
               color="inherit"
               size="large"
+              startIcon={<LinkedInIcon />}
               endIcon={<LaunchRoundedIcon />}
               href={profile.linkedin}
               target="_blank"
               rel="noopener"
-              sx={{ borderColor: 'surface.softBorder' }}
+              sx={{ borderColor: 'surface.softBorder', '& .MuiButton-endIcon > svg': { fontSize: 18 } }}
             >
               {copy.linkedinButton}
             </Button>
