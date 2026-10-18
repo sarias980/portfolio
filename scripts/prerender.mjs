@@ -1,5 +1,6 @@
 // Prerenders one static HTML file per locale from the SSR bundle.
 // Runs after `vite build` (client, into dist/) and `vite build --ssr` (into dist-ssr/).
+import { execSync } from 'node:child_process';
 import { readdir, readFile, rm, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -19,7 +20,16 @@ if (
 ) {
   throw new Error('dist/index.html is not the Vite template. Run the full `npm run build` instead.');
 }
-const buildDate = new Date().toISOString().slice(0, 10);
+// dateModified and sitemap lastmod track the last commit that touched the visible content,
+// so a deploy without content changes keeps the same date. Falls back to today without git.
+const contentDate = (() => {
+  try {
+    return execSync('git log -1 --format=%cs -- src/content public/cv', { cwd: root, encoding: 'utf8' }).trim();
+  } catch {
+    return '';
+  }
+})();
+const buildDate = contentDate || new Date().toISOString().slice(0, 10);
 
 // Preload the latin subsets of the two variable fonts used above the fold.
 const assetFiles = await readdir(path.join(distDir, 'assets'));

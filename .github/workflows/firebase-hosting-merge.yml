@@ -19,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history: prerender dates the content from its last git commit.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:

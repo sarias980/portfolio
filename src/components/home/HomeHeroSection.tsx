@@ -113,7 +113,7 @@ export default function HomeHeroSection({ copy, kpis, profile }: HomeHeroSection
           <Typography variant="h1" sx={{ maxWidth: 900 }}>
             <Box component="span" sx={{ display: 'block' }}>
               {copy.heroTitle}
-            </Box>
+            </Box>{' '}
             <Box
               component="span"
               aria-hidden
@@ -250,7 +250,7 @@ export default function HomeHeroSection({ copy, kpis, profile }: HomeHeroSection
               }}
             >
               {kpi.value}
-            </Typography>
+            </Typography>{' '}
             <Typography component="span" sx={{ color: 'text.secondary', fontWeight: 600 }}>
               {kpi.label}
             </Typography>

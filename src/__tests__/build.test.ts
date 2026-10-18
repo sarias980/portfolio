@@ -70,13 +70,27 @@ describe.each(pages)('prerendered $file', ({ locale, file, url }) => {
     expect(blocks).toHaveLength(1);
 
     const data = JSON.parse(blocks[0][1]);
-    expect(data['@type']).toBe('ProfilePage');
-    expect(data.url).toBe(url);
-    expect(data.mainEntity['@type']).toBe('Person');
-    expect(data.mainEntity.url).toBe('https://sarias.dev/');
-    expect(data.mainEntity.sameAs).toEqual(
+    const nodes = Object.fromEntries(data['@graph'].map((node: { '@type': string }) => [node['@type'], node]));
+    const { WebSite: website, ProfilePage: page, Person: person, Organization: employer } = nodes;
+
+    expect(page.url).toBe(url);
+    expect(page.isPartOf['@id']).toBe(website['@id']);
+    expect(page.mainEntity['@id']).toBe(person['@id']);
+    expect(person['@id']).toBe('https://sarias.dev/#person');
+    expect(person.url).toBe('https://sarias.dev/');
+    expect(person.sameAs).toEqual(
       expect.arrayContaining(['https://github.com/sarias980', expect.stringContaining('linkedin.com')]),
     );
+    expect(person.worksFor['@id']).toBe(employer['@id']);
+    expect(employer.url).toBe(getPortfolioContent(locale).experiences[0].website);
+  });
+
+  it('keeps adjacent inline text separated when tags are stripped', () => {
+    const text = read().replace(/<[^>]+>/g, '');
+    const { experiences } = getPortfolioContent(locale);
+
+    expect(text).toContain(`${getHomeCopy(locale).heroTitle} `);
+    expect(text).toContain(`${experiences[0].role} ${experiences[0].company}`);
   });
 
   it('inlines critical CSS and never hides content in the markup', () => {

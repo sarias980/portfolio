@@ -87,7 +87,7 @@ export default function HomeExperienceSection({ copy, experiences }: HomeExperie
               <Box sx={{ gridColumn: { xs: 2, md: 3 }, gridRow: { xs: 2, md: 1 } }}>
                 <Typography variant="h3" sx={{ fontSize: { xs: '1.15rem', md: '1.35rem' } }}>
                   {experience.role}
-                </Typography>
+                </Typography>{' '}
                 <Link
                   href={experience.website}
                   target="_blank"
@@ -96,7 +96,7 @@ export default function HomeExperienceSection({ copy, experiences }: HomeExperie
                   sx={{ fontWeight: 700, color: 'surface.accentText' }}
                 >
                   {experience.company}
-                </Link>
+                </Link>{' '}
                 <Typography color="text.secondary" sx={{ mt: 1, maxWidth: 640 }}>
                   {experience.highlights[0]}
                 </Typography>

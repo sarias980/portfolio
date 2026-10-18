@@ -25,31 +25,61 @@ export const knowsAbout = [
 export const getOgImage = (locale: Locale) => absoluteUrl(`/og-image-${locale}.png`);
 
 export function buildStructuredData(locale: Locale, modifiedDate: string) {
-  const { profile } = getPortfolioContent(locale);
+  const { profile, experiences } = getPortfolioContent(locale);
+  const copy = getHomeCopy(locale);
   const url = absoluteUrl(localePaths[locale]);
+  const siteUrl = absoluteUrl('/');
+  // The first experience is the current role, shown as "Present" on the page.
+  const currentEmployer = experiences[0];
 
+  // One graph with stable @ids, so both locales describe the same site, person and employer.
   // ProfilePage wraps the Person so Google's Rich Results Test recognises it.
   return {
     '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    url,
-    inLanguage: locale,
-    dateModified: modifiedDate,
-    mainEntity: {
-      '@type': 'Person',
-      '@id': `${absoluteUrl('/')}#person`,
-      name: profile.fullName,
-      jobTitle: profile.jobTitle,
-      url: absoluteUrl('/'),
-      image: getOgImage(locale),
-      sameAs: [profile.linkedin, profile.github],
-      knowsAbout,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Barcelona',
-        addressCountry: 'ES',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${siteUrl}#website`,
+        url: siteUrl,
+        name: profile.fullName,
+        inLanguage: locales,
+        publisher: { '@id': `${siteUrl}#person` },
       },
-    },
+      {
+        '@type': 'ProfilePage',
+        '@id': `${url}#profilepage`,
+        url,
+        name: copy.metaTitle,
+        inLanguage: locale,
+        isPartOf: { '@id': `${siteUrl}#website` },
+        dateModified: modifiedDate,
+        mainEntity: { '@id': `${siteUrl}#person` },
+      },
+      {
+        '@type': 'Person',
+        '@id': `${siteUrl}#person`,
+        name: profile.fullName,
+        jobTitle: profile.jobTitle,
+        description: profile.summary,
+        url: siteUrl,
+        image: getOgImage(locale),
+        email: `mailto:${profile.email}`,
+        worksFor: { '@id': `${siteUrl}#org-${currentEmployer.company.toLowerCase()}` },
+        sameAs: [profile.linkedin, profile.github],
+        knowsAbout,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Barcelona',
+          addressCountry: 'ES',
+        },
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${siteUrl}#org-${currentEmployer.company.toLowerCase()}`,
+        name: currentEmployer.company,
+        url: currentEmployer.website,
+      },
+    ],
   };
 }
 
